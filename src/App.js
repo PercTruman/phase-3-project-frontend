@@ -11,12 +11,13 @@ import mortarion from "./images/mortarion.jpg";
 
 function App() {
   return (
-    <div style={{backgroundImage: `url(${mortarion})`,
+    <div style={{ backgroundImage: `url(${mortarion})`,
     margin: '0 auto',
     height: '100vh',
     width: 'auto',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'}}>
+    backgroundSize: 'cover'
+    }}>
       <NavBar />
         <Routes>
           <Route path ="*" element={<Home />}/>
