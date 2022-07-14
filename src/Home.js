@@ -7,22 +7,24 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-function Home({armies}) {
- 
+function Home({ armies }) {
   const [chosenArmy, setChosenArmy] = useState("");
   let navigate = useNavigate();
 
-  const armyNames = armies.map(army => 
-    <MenuItem key={army.name} value={army.name}>{army.name}</MenuItem>)
+  const armyNames = armies.map((army) => (
+    <MenuItem key={army.name} value={army.name} id={army.id}>
+       {army.name}
+    </MenuItem>
+  ));
 
   function handleChange(e) {
     setChosenArmy(e.target.value);
   }
-  console.log(chosenArmy.id)
-
+  console.log(chosenArmy)
   function navigateToChosenArmy() {
     navigate(`/army/${chosenArmy}`);
   }
+
 
   return (
     <div>
@@ -40,8 +42,8 @@ function Home({armies}) {
           <Select
             autoWidth
             labelId="demo-simple-select-label"
-            id="demo-simple-select"
             value={chosenArmy}
+            id={chosenArmy.id}
             label="Choose Army"
             onChange={handleChange}
           >
