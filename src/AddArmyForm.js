@@ -2,7 +2,7 @@ import React from 'react'
 
 function AddArmyForm({handleArmyFormSubmit, armyFormData, handleArmyFormChange}) {
   return (
-    <form className='transparent' onSubmit={handleArmyFormSubmit}
+    <form  onSubmit={handleArmyFormSubmit}
     style={{
       display: "flex",
       flexDirection: "column",
