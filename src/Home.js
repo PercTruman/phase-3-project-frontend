@@ -8,8 +8,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 function Home({ armies }) {
-  const [chosenArmy, setChosenArmy] = useState("");
   let navigate = useNavigate();
+  const [chosenArmy, setChosenArmy] = useState("")
 
   const armyNames = armies.map((army) => (
     <MenuItem key={army.name} value={army.name} id={army.id}>
@@ -17,12 +17,13 @@ function Home({ armies }) {
     </MenuItem>
   ));
 
-  function handleChange(e) {
-    setChosenArmy(e.target.value);
+  function handleChange(e ) {
+    const foundArmy = armies.find((army) => army.name === e.target.value)
+    navigateToChosenArmy(foundArmy)
   }
-  console.log(chosenArmy)
-  function navigateToChosenArmy() {
-    navigate(`/army/${chosenArmy}`);
+
+  function navigateToChosenArmy(army) {
+   navigate(`/army/${army.id}`);
   }
 
 
