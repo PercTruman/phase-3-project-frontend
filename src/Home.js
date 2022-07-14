@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { Button, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -7,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-function Home({ armies, handleChange, chosenArmy, setChosenArmy, navigateToChosenArmy }) {
+function Home({ armies, handleChange, chosenArmy, navigateToChosenArmy }) {
  
  
 

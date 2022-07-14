@@ -9,7 +9,7 @@ import AddModelForm from "./AddModelForm";
 
 function App() {
   const [armies, setArmies] = useState([]);
-  const [chosenArmy, setChosenArmy] = useState("");
+  const [chosenArmy, setChosenArmy] = useState({});
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +20,8 @@ function App() {
 
   function onHandleChange(e) {
     const foundArmy = armies.find((army) => army.name === e.target.value);
-    setChosenArmy(foundArmy.name);
+    console.log(foundArmy)
+    setChosenArmy(foundArmy);
     navigateToChosenArmy(foundArmy);
   }
 
@@ -55,7 +56,7 @@ function App() {
         />
         <Route path="/add_new_army" element={<AddArmyForm />} />
         <Route path="/add_new_models" element={<AddModelForm />} />
-        <Route path="/army" element={<Army armies={armies} />} />
+        <Route path="/army/:id" element={<Army chosenArmy={chosenArmy} />} />
       </Routes>
     </div>
   );

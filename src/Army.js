@@ -1,14 +1,14 @@
 
 import React from 'react'
 
-function Army({armies}) {
-  fetch('http://localhost:9292/army/death_guard')
+function Army({chosenArmy}) {
+  fetch(`http://localhost:9292/army/${chosenArmy.id}`)
     .then(res => res.json())
     .then(modelList => modelList.map(model =>
       <div>
         <p>{model.name}</p>
       </div>))
-  console.log(armies)
+  
   const armyBlockStyle = {
     color: 'red',
     textAlign: 'center'
@@ -16,7 +16,7 @@ function Army({armies}) {
 
   return (
     <div style={armyBlockStyle}>
-      <h1 style={{armyBlockStyle, fontSize:'40px'} }>Death Guard</h1>
+      <h1 style={{armyBlockStyle, fontSize:'40px'} }>{chosenArmy.name}</h1>
     </div>
   )
 }
