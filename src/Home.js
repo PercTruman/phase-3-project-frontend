@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -45,13 +45,6 @@ function Home({ armies, handleChange, chosenArmy, navigateToChosenArmy }) {
         </FormControl>
       </Box>
       <Grid container justify="center">
-        <Button
-          variant="contained"
-          onClick={navigateToChosenArmy}
-          sx={{ margin: "20px auto" }}
-        >
-          Go To Army Page
-        </Button>
       </Grid>
     </div>
   );
