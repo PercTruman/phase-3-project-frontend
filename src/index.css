@@ -1,6 +1,4 @@
 
-
-
 body {
   margin: 0;
   font-family: 'Cormorant SC', serif;
@@ -14,8 +12,9 @@ code {
     monospace;
 }
 
-#navlink {
-  border: 1px solid red;
+.army_block {
+  text-align: center;
+  margin: 0 auto;
 }
 
 
