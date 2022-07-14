@@ -7,9 +7,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-function Home() {
+function Home({armies}) {
+ 
   const [chosenArmy, setChosenArmy] = useState("");
   let navigate = useNavigate();
+
+  const armyNames = armies.map(army => 
+    <MenuItem key={army.name} value={army.name}>{army.name}</MenuItem>)
 
   function handleChange(e) {
     setChosenArmy(e.target.value);
@@ -41,8 +45,7 @@ function Home() {
             label="Choose Army"
             onChange={handleChange}
           >
-            <MenuItem value={"death_guard"}>Death Guard</MenuItem>
-            <MenuItem value={"drukhari"}>Drukhari</MenuItem>
+            {armyNames}
           </Select>
         </FormControl>
       </Box>

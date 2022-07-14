@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
-import DeathGuard from "./DeathGuard";
-import Drukhari from "./Drukhari";
+import Army from "./Army";
 import mortarion from "./images/mortarion.jpg";
 import AddArmyForm from "./AddArmyForm";
 import AddModelForm from "./AddModelForm";
@@ -30,11 +29,10 @@ function App() {
     >
       <NavBar />
       <Routes>
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<Home armies={armies}/>} />
         <Route path="/add_new_army" element={<AddArmyForm />} />
         <Route path="/add_new_models" element={<AddModelForm />} />
-        <Route path="/army/death_guard" element={<DeathGuard armies={armies} />} />
-        <Route path="/army/drukhari" element={<Drukhari />} />
+        <Route path="/army" element={<Army armies={armies} />} />
       </Routes>
     </div>
   );

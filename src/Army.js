@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-function DeathGuard({armies}) {
+function Army({armies}) {
   fetch('http://localhost:9292/army/death_guard')
     .then(res => res.json())
     .then(modelList => modelList.map(model =>
@@ -21,4 +21,4 @@ function DeathGuard({armies}) {
   )
 }
 
-export default DeathGuard;
+export default Army;
