@@ -17,12 +17,15 @@ function Home({ armies }) {
     </MenuItem>
   ));
 
-  function handleChange(e ) {
+  function handleChange(e) {
     const foundArmy = armies.find((army) => army.name === e.target.value)
+    console.log(foundArmy)
+    setChosenArmy(foundArmy.name)
     navigateToChosenArmy(foundArmy)
   }
 
   function navigateToChosenArmy(army) {
+    console.log(army)
    navigate(`/army/${army.id}`);
   }
 
@@ -44,7 +47,7 @@ function Home({ armies }) {
             autoWidth
             labelId="demo-simple-select-label"
             value={chosenArmy}
-            id={chosenArmy.id}
+            id="demo-simple-select"
             label="Choose Army"
             onChange={handleChange}
           >
