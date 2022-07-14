@@ -17,7 +17,7 @@ function Army({chosenArmy}) {
   return (
     <div style={armyBlockStyle}>
       <h1 style={{armyBlockStyle, fontSize:'40px'} }>{chosenArmy.name}</h1>
-      <h4>{chosenArmy.alignment}</h4>
+      <h5>{chosenArmy.alignment}</h5>
       <p>{chosenArmy.description}</p>
     </div>
   )

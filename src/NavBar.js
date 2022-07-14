@@ -14,9 +14,9 @@ function NavBar() {
               <Typography variant="h4" component="div" sx={{ flexGrow: 1, textAlign: 'center', margin: '0 auto' , padding: '2.5rem'}}>
                 Warhammer Army Inventory
               </Typography>
-              <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/" color="inherit" >Home</NavLink>
-              <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/add_army_form" color="inherit" >Add New Army</NavLink>
-              <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/add_model_form" color="inherit" >Add Models</NavLink>
+              <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/" color="red" >Home</NavLink>
+              <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/add_new_army" color="red" >Add New Army</NavLink>
+              <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/add_new_models" color="red" >Add Models</NavLink>
             </Toolbar>
           </AppBar>
         </Box>

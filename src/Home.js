@@ -7,17 +7,11 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 function Home({ armies, handleChange, chosenArmy, navigateToChosenArmy }) {
- 
- 
-
   const armyNames = armies.map((army) => (
     <MenuItem key={army.name} value={army.name} id={army.id}>
-       {army.name}
+      {army.name}
     </MenuItem>
   ));
-
- 
-
 
   return (
     <div>
@@ -44,8 +38,7 @@ function Home({ armies, handleChange, chosenArmy, navigateToChosenArmy }) {
           </Select>
         </FormControl>
       </Box>
-      <Grid container justify="center">
-      </Grid>
+      <Grid container justify="center"></Grid>
     </div>
   );
 }

@@ -10,6 +10,9 @@ import AddModelForm from "./AddModelForm";
 function App() {
   const [armies, setArmies] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
+  const [armyFormData, setArmyFormData] = useState({
+
+  })
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +31,10 @@ function App() {
   function navigateToChosenArmy(army) {
     navigate(`/army/${army.id}`);
   }
+
+  function handleArmyFormChange(){}
+
+  function handleArmyFormSubmit(){}
 
   return (
     <div
@@ -54,7 +61,7 @@ function App() {
             />
           }
         />
-        <Route path="/add_new_army" element={<AddArmyForm />} />
+        <Route path="/add_new_army" element={<AddArmyForm handleArmyFormSubmit={handleArmyFormSubmit} armyFormData={armyFormData} handleArmyFormChange={handleArmyFormChange}/>} />
         <Route path="/add_new_models" element={<AddModelForm />} />
         <Route path="/army/:id" element={<Army chosenArmy={chosenArmy} />} />
       </Routes>
