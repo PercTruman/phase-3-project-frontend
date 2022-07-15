@@ -22,7 +22,6 @@ function App() {
 
   function onHandleChange(e) {
     const foundArmy = armies.find((army) => army.name === e.target.value);
-    console.log(foundArmy)
     setChosenArmy(foundArmy);
     navigateToChosenArmy(foundArmy);
   }
