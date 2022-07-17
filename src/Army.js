@@ -1,29 +1,36 @@
 
-import React from 'react'
+import React, {useEffect} from 'react'
 
-function Army({chosenArmy}) {
-  let modelEntries = []
-  fetch(`http://localhost:9292/army/${chosenArmy.id}`)
-    .then(res => res.json())
-    .then( data => {
-       modelEntries = data.army_models.map((model)=>
-          <div>
-            <p>Model: {model.name}</p>
-            <p>Number in Collection: {model.number_in_collection}</p>
-            <p>Cost Per Box: {model.cost_per_box}</p>
-            <p>Unit Points Cost: {model.unit_points_cost}</p>
-          </div>)})
-  
+function Army({chosenArmy, armyModelData, setArmyModelData}) {
+
   const armyBlockStyle = {
     color: 'red',
     textAlign: 'center'
     }
 
+
+    useEffect(() => {
+      fetch(`http://localhost:9292/army/${chosenArmy.id}`)
+        .then((res) => res.json())
+        .then((data) => createListing(data))
+       
+    },[]
+    )
+    let modelList = []
+    function createListing(modelObjects){
+      modelList = modelObjects.army_models.map(model=>model.name)
+    }
+    console.log(modelList)
+        //  const modelList = armyModelData ? armyModelData.army_models : []
+       
+         
+
+    
   return (
     <div style={armyBlockStyle}>
-      <h1 style={{armyBlockStyle, fontSize:'40px'} }>{chosenArmy.name}</h1>
-      {modelEntries}
-    </div>
+      <h1 style={{armyBlockStyle, fontSize:'40px'}}>{armyModelData.name}</h1>
+      {/* <h2 style={{armyBlockStyle, fontSize:'40px'}}>{modelList}</h2> */}
+     </div>
   )
 }
 

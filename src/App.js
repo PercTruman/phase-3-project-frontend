@@ -10,8 +10,16 @@ import AddModelForm from "./AddModelForm";
 function App() {
   const [armies, setArmies] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
-  const [armyFormData, setArmyFormData] = useState({})
+  const [armyFormData, setArmyFormData] = useState({});
   const [modelFormData, setModelFormData] = useState({});
+  const [armyModelData, setArmyModelData] = useState({
+    name: "",
+    image_url: "",
+    number_in_collection: 0,
+    cost_per_box: 0,
+    unit_points_cost: 0,
+    army_id: null,
+  });
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -30,13 +38,13 @@ function App() {
     navigate(`/army/${army.id}`);
   }
 
-  function handleArmyFormChange(){}
+  function handleArmyFormChange() {}
 
-  function handleArmyFormSubmit(){}
+  function handleArmyFormSubmit() {}
 
-  function handleModelFormChange(){}
-  
-  function handleModelFormSubmit(){}
+  function handleModelFormChange() {}
+
+  function handleModelFormSubmit() {}
 
   return (
     <div
@@ -63,9 +71,36 @@ function App() {
             />
           }
         />
-        <Route path="/add_new_army" element={<AddArmyForm handleArmyFormSubmit={handleArmyFormSubmit} armyFormData={armyFormData} handleArmyFormChange={handleArmyFormChange}/>} />
-        <Route path="/add_new_models" element={<AddModelForm handleModelFormChange={handleModelFormChange} handleModelFormSubmit={handleModelFormSubmit} modelFormData={modelFormData}/>} /> 
-        <Route path="/army/:id" element={<Army chosenArmy={chosenArmy} />} />
+        <Route
+          path="/add_new_army"
+          element={
+            <AddArmyForm
+              handleArmyFormSubmit={handleArmyFormSubmit}
+              armyFormData={armyFormData}
+              handleArmyFormChange={handleArmyFormChange}
+            />
+          }
+        />
+        <Route
+          path="/add_new_models"
+          element={
+            <AddModelForm
+              handleModelFormChange={handleModelFormChange}
+              handleModelFormSubmit={handleModelFormSubmit}
+              modelFormData={modelFormData}
+            />
+          }
+        />
+        <Route
+          path="/army/:id"
+          element={
+            <Army
+              chosenArmy={chosenArmy}
+              setArmyModelData={setArmyModelData}
+              armyModelData={armyModelData}
+            />
+          }
+        />
       </Routes>
     </div>
   );
