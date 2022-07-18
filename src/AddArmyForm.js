@@ -35,6 +35,7 @@ function AddArmyForm({handleArmyFormSubmit, armyFormData, handleArmyFormChange})
         aria-label="description"
         onChange={handleArmyFormChange}
       ></input>
+       <input style={{marginTop:"2rem"}}type="submit" value="Add New Army"/>
       </form>
   )
 }

@@ -11,7 +11,11 @@ import AddModelForm from "./AddModelForm";
 function App() {
   const [armies, setArmies] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
-  const [armyFormData, setArmyFormData] = useState({});
+  const [armyFormData, setArmyFormData] = useState({
+    name: "",
+    alignment: "",
+    description: ""
+  });
   const [modelFormData, setModelFormData] = useState({});
   const [armyModelData, setArmyModelData] = useState({
     name: "",
@@ -39,7 +43,9 @@ function App() {
     navigate(`/army/${army.id}`);
   }
 
-  function handleArmyFormChange() {}
+  function handleArmyFormChange(e) {
+    setArmyFormData({ ...armyFormData, [e.target.name]: e.target.value });
+  }
 
   function handleArmyFormSubmit() {}
 
