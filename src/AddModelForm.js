@@ -16,7 +16,7 @@ function AddModelForm({
       {army.name}
     </MenuItem>
   ));
-  const selectedArmy = [];
+  let selectedArmy = [];
   function handleArmyDropDownChange(e) {
     selectedArmy = armies.find((army) => army.name === e.target.value);
   }
@@ -95,6 +95,7 @@ function AddModelForm({
           <InputLabel id="demo-simple-select-label">Which Army To Update?</InputLabel>
           <Select
             autoWidth
+            type="text"
             labelId="demo-simple-select-label"
             value={selectedArmy.name}
             id="demo-simple-select"

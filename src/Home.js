@@ -12,7 +12,7 @@ function Home({ armies, handleChange, chosenArmy }) {
       {army.name}
     </MenuItem>
   ));
-  console.log(chosenArmy.name);
+
 
   return (
     <div>
@@ -28,9 +28,10 @@ function Home({ armies, handleChange, chosenArmy }) {
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Choose Army</InputLabel>
           <Select
+            type="text"
             autoWidth
             labelId="demo-simple-select-label"
-            value={chosenArmy.name}
+            value=''
             id="demo-simple-select"
             label="Choose Army"
             onChange={handleChange}
@@ -39,7 +40,6 @@ function Home({ armies, handleChange, chosenArmy }) {
           </Select>
         </FormControl>
       </Box>
-      {/* <Grid container justify="center"></Grid> */}
     </div>
   );
 }

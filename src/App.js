@@ -22,16 +22,16 @@ function App() {
     number_in_collection: 0,
     cost_per_box: 0,
     unit_points_cost: 0,
-    army_id: null,
+    army_id: null
   });
-  const [armyModelData, setArmyModelData] = useState({
-    name: "",
-    image_url: "",
-    number_in_collection: 0,
-    cost_per_box: 0,
-    unit_points_cost: 0,
-    army_id: null,
-  });
+  // const [armyModelData, setArmyModelData] = useState({
+  //   name: "",
+  //   image_url: "",
+  //   number_in_collection: 0,
+  //   cost_per_box: 0,
+  //   unit_points_cost: 0,
+  //   army_id: null,
+  // });
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -85,7 +85,7 @@ function App() {
       body: JSON.stringify(form),
     })
       .then((res) => res.json())
-      .then((addedModel) => setArmies([...armyModelData, addedModel]));
+      .then((addedModel) => setModelFormData([...modelFormData, addedModel]));
   }
 
   return (
@@ -144,8 +144,8 @@ function App() {
             >
               <Army
                 chosenArmy={chosenArmy}
-                setArmyModelData={setArmyModelData}
-                armyModelData={armyModelData}
+                setModelFormData={setModelFormData}
+                modelFormData={modelFormData}
               />
             </Grid>
           }

@@ -11,7 +11,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function Army({ chosenArmy, armyModelData, setArmyModelData }) {
+function Army({ chosenArmy }) {
   const models = chosenArmy.army_models;
 
   const armyBlockStyle = {
@@ -20,13 +20,13 @@ function Army({ chosenArmy, armyModelData, setArmyModelData }) {
   };
 
   const modelListing = models.map((model) => (
-    <Grid item xs={12}>
-      <Item sx={{ width: "100%", margin: "20px" }}>
+    <Grid key={model.id} item xs={12}>
+      <Item  sx={{ width: "100%", margin: "20px" }}>
         <h3>Model: {model.name}</h3>
         <h3>Number in Collection: {model.number_in_collection}</h3>
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
-        <button type="submit">Update Collection</button>
+        <button type="submit">Update Model(s)</button>
       </Item>
     </Grid>
   ));
