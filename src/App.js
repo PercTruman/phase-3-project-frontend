@@ -3,11 +3,12 @@ import NavBar from "./NavBar";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./Home";
 import Army from "./Army";
+import  Grid  from "@mui/material/Grid";
 import mortarion from "./images/mortarion.jpg";
 import AddArmyForm from "./AddArmyForm";
 import AddModelForm from "./AddModelForm";
 
-function App() {
+function App() { 
   const [armies, setArmies] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
   const [armyFormData, setArmyFormData] = useState({});
@@ -31,6 +32,7 @@ function App() {
   function onHandleChange(e) {
     const foundArmy = armies.find((army) => army.name === e.target.value);
     setChosenArmy(foundArmy);
+    // console.log(foundArmy.army_models)
     navigateToChosenArmy(foundArmy);
   }
 
@@ -94,11 +96,15 @@ function App() {
         <Route
           path="/army/:id"
           element={
-            <Army
-              chosenArmy={chosenArmy}
-              setArmyModelData={setArmyModelData}
-              armyModelData={armyModelData}
-            />
+           
+            <Grid container spacing={8} sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+              <Army
+                chosenArmy={chosenArmy}
+                setArmyModelData={setArmyModelData}
+                armyModelData={armyModelData}
+              />
+            </Grid>
+      
           }
         />
       </Routes>
