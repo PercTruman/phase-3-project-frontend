@@ -24,14 +24,14 @@ function App() {
     unit_points_cost: 0,
     army_id: null
   });
-  // const [armyModelData, setArmyModelData] = useState({
-  //   name: "",
-  //   image_url: "",
-  //   number_in_collection: 0,
-  //   cost_per_box: 0,
-  //   unit_points_cost: 0,
-  //   army_id: null,
-  // });
+  const [armyModelData, setArmyModelData] = useState({
+    name: "",
+    image_url: "",
+    number_in_collection: 0,
+    cost_per_box: 0,
+    unit_points_cost: 0,
+    army_id: null,
+  });
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -79,13 +79,14 @@ function App() {
   }
 
   function handleModelFormSubmit(form) {
+    console.log(form)
     fetch("http://localhost:9292/add_new_models", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     })
       .then((res) => res.json())
-      .then((addedModel) => setModelFormData([...modelFormData, addedModel]));
+      .then((addedModel) => armyModelData([...armyModelData, addedModel]));
   }
 
   return (

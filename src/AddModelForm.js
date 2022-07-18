@@ -97,9 +97,9 @@ function AddModelForm({
             autoWidth
             type="text"
             labelId="demo-simple-select-label"
-            value={selectedArmy.name}
-            id="demo-simple-select"
-            label="Choose Army"
+            value=''
+            id={selectedArmy.id}
+            label="Which Army to Update?"
             onChange={handleArmyDropDownChange}
           >
             {armyNames}

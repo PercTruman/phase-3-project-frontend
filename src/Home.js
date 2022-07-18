@@ -1,5 +1,4 @@
 import React from "react";
-// import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -21,7 +20,6 @@ function Home({ armies, handleChange, chosenArmy }) {
           minWidth: 120,
           width: "30%",
           backgroundColor: "white",
-          color: "red",
           margin: "0 auto",
         }}
       >

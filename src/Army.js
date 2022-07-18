@@ -19,6 +19,12 @@ function Army({ chosenArmy }) {
     textAlign: "center",
   };
 
+  function handleSubmit(id) {
+    fetch(`http://localhost:9292/army/${id}`, {
+      method: "DELETE"
+  })}
+
+
   const modelListing = models.map((model) => (
     <Grid key={model.id} item xs={12}>
       <Item  sx={{ width: "100%", margin: "20px" }}>
@@ -34,6 +40,7 @@ function Army({ chosenArmy }) {
   return (
     <div style={armyBlockStyle}>
       <h1 style={{ armyBlockStyle, fontSize: "40px" }}>{chosenArmy.name}</h1>
+      <button onSubmit={handleSubmit(chosenArmy.id)} type="submit" value="Delete Army">Delete Entire Army</button>
       {modelListing}
     </div>
   );
