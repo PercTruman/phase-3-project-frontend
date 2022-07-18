@@ -16,7 +16,14 @@ function App() {
     alignment: "",
     description: ""
   });
-  const [modelFormData, setModelFormData] = useState({});
+  const [modelFormData, setModelFormData] = useState({
+    name: "",
+    image_url: "",
+    number_in_collection: 0,
+    cost_per_box: 0,
+    unit_points_cost: 0,
+    army_id: null,
+  });
   const [armyModelData, setArmyModelData] = useState({
     name: "",
     image_url: "",
@@ -67,9 +74,19 @@ function App() {
       .then((addedArmy) => setArmies([...armies, addedArmy]));
   }
 
-  function handleModelFormChange() {}
+  function handleModelFormChange(e) {
+    setModelFormData({ ...modelFormData, [e.target.name]: e.target.value });
+  }
 
-  function handleModelFormSubmit() {}
+  function handleModelFormSubmit(form) {
+    fetch("http://localhost:9292/add_new_models", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    })
+      .then((res) => res.json())
+      .then((addedModel) => setArmies([...armyModelData, addedModel]));
+  }
 
   return (
     <div
@@ -113,6 +130,7 @@ function App() {
               handleModelFormChange={handleModelFormChange}
               handleModelFormSubmit={handleModelFormSubmit}
               modelFormData={modelFormData}
+              armies={armies}
             />
           }
         />

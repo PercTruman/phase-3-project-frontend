@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+// import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -39,7 +39,7 @@ function Home({ armies, handleChange, chosenArmy }) {
           </Select>
         </FormControl>
       </Box>
-      <Grid container justify="center"></Grid>
+      {/* <Grid container justify="center"></Grid> */}
     </div>
   );
 }
