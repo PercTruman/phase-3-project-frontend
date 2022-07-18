@@ -51,6 +51,7 @@ function AddModelForm({handleModelFormChange, handleModelFormSubmit, modelFormDa
         aria-label="unit_points_cost"
         onChange={handleModelFormChange}
       ></input>
+       <input style={{margin:"15px auto", width:"130px"}}type="submit" value="Add New Model(s)"/>
       </form>
   )
 }

@@ -47,7 +47,25 @@ function App() {
     setArmyFormData({ ...armyFormData, [e.target.name]: e.target.value });
   }
 
-  function handleArmyFormSubmit() {}
+  function handleArmyFormSubmit(e) {
+    e.preventDefault();
+    handleAddNewArmy(armyFormData);
+    setArmyFormData({ 
+      name: "",
+      alignment: "",
+      description: ""
+   })
+  }
+
+  function handleAddNewArmy(form) {
+    fetch("http://localhost:9292/add_new_army", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    })
+      .then((res) => res.json())
+      .then((addedArmy) => setArmies([...armies, addedArmy]));
+  }
 
   function handleModelFormChange() {}
 
