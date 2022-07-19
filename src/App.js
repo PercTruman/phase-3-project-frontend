@@ -14,7 +14,7 @@ function App() {
   const [armyFormData, setArmyFormData] = useState({
     name: "",
     alignment: "",
-    description: ""
+    description: "",
   });
   const [modelFormData, setModelFormData] = useState({
     name: "",
@@ -22,7 +22,7 @@ function App() {
     number_in_collection: 0,
     cost_per_box: 0,
     unit_points_cost: 0,
-    army_id: 0
+    army_id: 0,
   });
   const [armyModelData, setArmyModelData] = useState({
     name: "",
@@ -50,6 +50,7 @@ function App() {
     navigate(`/army/${army.id}`);
   }
 
+  // Controlled Form Submit Functions for Army
   function handleArmyFormChange(e) {
     setArmyFormData({ ...armyFormData, [e.target.name]: e.target.value });
   }
@@ -57,11 +58,11 @@ function App() {
   function handleArmyFormSubmit(e) {
     e.preventDefault();
     handleAddNewArmy(armyFormData);
-    setArmyFormData({ 
+    setArmyFormData({
       name: "",
       alignment: "",
-      description: ""
-   })
+      description: "",
+    });
   }
 
   function handleAddNewArmy(form) {
@@ -74,22 +75,34 @@ function App() {
       .then((addedArmy) => setArmies([...armies, addedArmy]));
   }
 
+  // Controlled Form Submit Functions for Models
+
   function handleModelFormChange(e) {
-    setModelFormData({ ...modelFormData, [e.target.value]: e.target.value });
-    handleModelFormSubmit(modelFormData)
+    setModelFormData({ ...modelFormData, [e.target.name]: e.target.value });
+  }
+  // handleModelFormSubmit(modelFormData)
+
+  function handleModelFormSubmit(e) {
+    e.preventDefault();
+    handleAddNewModels(modelFormData);
+    setModelFormData({
+      name: "",
+      image_url: "",
+      number_in_collection: 0,
+      cost_per_box: 0,
+      unit_points_cost: 0,
+      army_id: 0,
+    });
   }
 
-  function handleModelFormSubmit(formData) {
-    // console.log(form)
+  function handleAddNewModels(formData) {
     fetch("http://localhost:9292/add_new_models", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then(addedModel => console.log(addedModel)
-       
-      );
+      .then((addedModel) => console.log(addedModel));
   }
 
   return (

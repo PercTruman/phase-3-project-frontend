@@ -1,9 +1,9 @@
 import React from "react";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+// import InputLabel from "@mui/material/InputLabel";
+// import MenuItem from "@mui/material/MenuItem";
+// import Box from "@mui/material/Box";
+// import FormControl from "@mui/material/FormControl";
+// import Select from "@mui/material/Select";
 
 function AddModelForm({
   handleModelFormChange,
@@ -18,11 +18,9 @@ function AddModelForm({
   ));
   let selectedArmy = [];
   function handleArmyDropDownChange(e) {
-    console.log(e.target.id)
     selectedArmy = armies.find((army) => army.name === e.target.value);
-    console.log(selectedArmy.id)
-    handleModelFormChange(e, modelFormData, selectedArmy)
   }
+  // handleModelFormChange(e, modelFormData, selectedArmy)
   return (
     <form
       onSubmit={handleModelFormSubmit}
@@ -87,9 +85,10 @@ function AddModelForm({
       ></input>
       <label style={{ fontSize: "20px", textAlign: "center", padding: "15px" }}>Which Army To Update?</label>
     
-    <select name = "army-options" id="army-options" onChange={handleModelFormChange}>
+    <select name = "army-options" id="army-options" onChange={handleArmyDropDownChange}>
       {armyNames}
-      </select>{/* <Box
+      </select>
+    {/* <Box
     
         sx={{
           minWidth: 120,
@@ -113,13 +112,13 @@ function AddModelForm({
             {armyNames}
           </Select>
         </FormControl>
-      </Box> */}
-{/* 
+    </Box> */}
+
       <input
         style={{ margin: "15px auto", width: "130px" }}
         type="submit"
         value="Add New Model(s)"
-      /> */}
+      />
     </form>
   );
 }
