@@ -12,13 +12,16 @@ function AddModelForm({
   armies,
 }) {
   const armyNames = armies.map((army) => (
-    <MenuItem key={army.name} value={army.name} id={army.id}>
+    <option key={army.name} value={army.name} id={army.id}>
       {army.name}
-    </MenuItem>
+    </option>
   ));
   let selectedArmy = [];
   function handleArmyDropDownChange(e) {
+    console.log(e.target.id)
     selectedArmy = armies.find((army) => army.name === e.target.value);
+    console.log(selectedArmy.id)
+    handleModelFormChange(e, modelFormData, selectedArmy)
   }
   return (
     <form
@@ -82,7 +85,12 @@ function AddModelForm({
         aria-label="unit_points_cost"
         onChange={handleModelFormChange}
       ></input>
-    <Box
+      <label style={{ fontSize: "20px", textAlign: "center", padding: "15px" }}>Which Army To Update?</label>
+    
+    <select name = "army-options" id="army-options" onChange={handleModelFormChange}>
+      {armyNames}
+      </select>{/* <Box
+    
         sx={{
           minWidth: 120,
           width: "300px",
@@ -97,7 +105,7 @@ function AddModelForm({
             autoWidth
             type="text"
             labelId="demo-simple-select-label"
-            value=''
+            value={selectedArmy.id}
             id={selectedArmy.id}
             label="Which Army to Update?"
             onChange={handleArmyDropDownChange}
@@ -105,13 +113,13 @@ function AddModelForm({
             {armyNames}
           </Select>
         </FormControl>
-      </Box>
-
+      </Box> */}
+{/* 
       <input
         style={{ margin: "15px auto", width: "130px" }}
         type="submit"
         value="Add New Model(s)"
-      />
+      /> */}
     </form>
   );
 }

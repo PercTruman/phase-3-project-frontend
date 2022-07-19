@@ -22,7 +22,7 @@ function App() {
     number_in_collection: 0,
     cost_per_box: 0,
     unit_points_cost: 0,
-    army_id: null
+    army_id: 0
   });
   const [armyModelData, setArmyModelData] = useState({
     name: "",
@@ -30,7 +30,7 @@ function App() {
     number_in_collection: 0,
     cost_per_box: 0,
     unit_points_cost: 0,
-    army_id: null,
+    army_id: 0,
   });
   let navigate = useNavigate();
 
@@ -75,18 +75,21 @@ function App() {
   }
 
   function handleModelFormChange(e) {
-    setModelFormData({ ...modelFormData, [e.target.name]: e.target.value });
+    setModelFormData({ ...modelFormData, [e.target.value]: e.target.value });
+    handleModelFormSubmit(modelFormData)
   }
 
-  function handleModelFormSubmit(form) {
-    console.log(form)
+  function handleModelFormSubmit(formData) {
+    // console.log(form)
     fetch("http://localhost:9292/add_new_models", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((addedModel) => armyModelData([...armyModelData, addedModel]));
+      .then(addedModel => console.log(addedModel)
+       
+      );
   }
 
   return (
