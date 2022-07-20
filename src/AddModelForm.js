@@ -1,9 +1,5 @@
 import React from "react";
-// import InputLabel from "@mui/material/InputLabel";
-// import MenuItem from "@mui/material/MenuItem";
-// import Box from "@mui/material/Box";
-// import FormControl from "@mui/material/FormControl";
-// import Select from "@mui/material/Select";
+
 
 function AddModelForm({
   handleModelFormChange,
@@ -11,14 +7,18 @@ function AddModelForm({
   modelFormData,
   armies,
 }) {
-  const armyNames = armies.map((army) => (
-    <option key={army.name} value={army.name} id={army.id}>
+  const dropDownOptions = armies.map((army) => (
+    <option type="integer" key={army.name} name="army_id" value={army.id} >
       {army.name}
     </option>
   ));
-  let selectedArmy = [];
+
+
+
   function handleArmyDropDownChange(e) {
-    selectedArmy = armies.find((army) => army.name === e.target.value);
+    console.log(e.target.value)
+    const selectedArmy = armies.filter((army) => army.id === e.target.value);
+    console.log(selectedArmy)
   }
   // handleModelFormChange(e, modelFormData, selectedArmy)
   return (
@@ -85,34 +85,9 @@ function AddModelForm({
       ></input>
       <label style={{ fontSize: "20px", textAlign: "center", padding: "15px" }}>Which Army To Update?</label>
     
-    <select name = "army-options" id="army-options" onChange={handleArmyDropDownChange}>
-      {armyNames}
+    <select value={modelFormData.army_id} name="army_id" onChange={e=>handleModelFormChange(e)}>
+      {dropDownOptions}
       </select>
-    {/* <Box
-    
-        sx={{
-          minWidth: 120,
-          width: "300px",
-          backgroundColor: "white",
-          color: "red",
-          margin: "2rem auto",
-        }}
-      >
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Which Army To Update?</InputLabel>
-          <Select
-            autoWidth
-            type="text"
-            labelId="demo-simple-select-label"
-            value={selectedArmy.id}
-            id={selectedArmy.id}
-            label="Which Army to Update?"
-            onChange={handleArmyDropDownChange}
-          >
-            {armyNames}
-          </Select>
-        </FormControl>
-    </Box> */}
 
       <input
         style={{ margin: "15px auto", width: "130px" }}

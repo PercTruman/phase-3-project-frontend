@@ -22,16 +22,9 @@ function App() {
     number_in_collection: 0,
     cost_per_box: 0,
     unit_points_cost: 0,
-    army_id: 0,
+    army_id: ''
   });
-  const [armyModelData, setArmyModelData] = useState({
-    name: "",
-    image_url: "",
-    number_in_collection: 0,
-    cost_per_box: 0,
-    unit_points_cost: 0,
-    army_id: 0,
-  });
+ 
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -78,9 +71,9 @@ function App() {
   // Controlled Form Submit Functions for Models
 
   function handleModelFormChange(e) {
+    console.log(e.target)
     setModelFormData({ ...modelFormData, [e.target.name]: e.target.value });
   }
-  // handleModelFormSubmit(modelFormData)
 
   function handleModelFormSubmit(e) {
     e.preventDefault();

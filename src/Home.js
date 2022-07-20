@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 function Home({ armies, handleChange, chosenArmy }) {
-  const armyNames = armies.map((army) => (
+  const dropDownOptions = armies.map((army) => (
     <MenuItem key={army.name} value={army.name} id={army.id}>
       {army.name}
     </MenuItem>
@@ -34,7 +34,7 @@ function Home({ armies, handleChange, chosenArmy }) {
             label="Choose Army"
             onChange={handleChange}
           >
-            {armyNames}
+            {dropDownOptions}
           </Select>
         </FormControl>
       </Box>
