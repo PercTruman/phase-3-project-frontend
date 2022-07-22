@@ -2,6 +2,7 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import FormDialog from "./FormDialog";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -12,27 +13,33 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Army({ chosenArmy }) {
-  const models = chosenArmy.army_models;
+  // const models = chosenArmy.army_models;
 
   const armyBlockStyle = {
     color: "red",
     textAlign: "center",
   };
 
-  function handleSubmit(id) {
-    fetch(`http://localhost:9292/army/${id}`, {
-      method: "DELETE"
-  })}
+  // function handleSubmit(id) {
+  //   fetch(`http://localhost:9292/army/${id}`, {
+  //     method: "DELETE"
+  // })}
+
+  // function openEditDialog(){
+   
+    // fetch(`http://localhost:9292/army_models/${e.target.id}`, {
+
+  // }
 
 
-  const modelListing = models.map((model) => (
+  const modelListing = chosenArmy.army_models.map((model) => (
     <Grid key={model.id} item xs={12}>
       <Item  sx={{ width: "100%", margin: "20px" }}>
         <h3>Model: {model.name}</h3>
         <h3>Number in Collection: {model.number_in_collection}</h3>
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
-        <button type="submit">Update Model(s)</button>
+        <FormDialog model={model}/>
       </Item>
     </Grid>
   ));
@@ -40,9 +47,11 @@ function Army({ chosenArmy }) {
   return (
     <div style={armyBlockStyle}>
       <h1 style={{ armyBlockStyle, fontSize: "40px" }}>{chosenArmy.name}</h1>
-      <button onSubmit={handleSubmit(chosenArmy.id)} type="submit" value="Delete Army">Delete Entire Army</button>
+      {/* <button onSubmit={handleSubmit(chosenArmy.id)} type="submit" value="Delete Army">Delete Entire Army</button> */}
       {modelListing}
+     
     </div>
+    
   );
 }
 

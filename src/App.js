@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import mortarion from "./images/mortarion.jpg";
 import AddArmyForm from "./AddArmyForm";
 import AddModelForm from "./AddModelForm";
+import AllModelsList from "./AllModelsList";
 
 function App() {
   const [armies, setArmies] = useState([]);
@@ -24,14 +25,22 @@ function App() {
     unit_points_cost: 0,
     army_id: ''
   });
+
+  const [modelEditFormData, setModelEditFormData] = useState({
+    name: "",
+    number_in_collection: 0,
+    cost_per_box: 0,
+    unit_points_cost: 0,
+  })
  
   let navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:9292").then((response) =>
-      response.json().then((fullArmyData) => setArmies(fullArmyData))
+      response.json().then((fullArmyData) =>setArmies(fullArmyData))
     );
   }, []);
+
 
   function onHandleChange(e) {
     const foundArmy = armies.find((army) => army.name === e.target.value);
@@ -71,7 +80,6 @@ function App() {
   // Controlled Form Submit Functions for Models
 
   function handleModelFormChange(e) {
-    console.log(e.target)
     setModelFormData({ ...modelFormData, [e.target.name]: e.target.value });
   }
 
@@ -95,7 +103,7 @@ function App() {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((addedModel) => console.log(addedModel));
+      .then(addedModel => alert(`${addedModel.name} has been added to your roster.`))
   }
 
   return (
@@ -106,7 +114,7 @@ function App() {
         height: "100vh",
         width: "auto",
         backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+        backgroundSize: "cover"
       }}
     >
       <NavBar />
@@ -117,9 +125,9 @@ function App() {
             <Home
               armies={armies}
               handleChange={onHandleChange}
-              chosenArmy={chosenArmy}
-              setChosenArmy={setChosenArmy}
-              navigateToChosenArmy={navigateToChosenArmy}
+              // chosenArmy={chosenArmy}
+              // setChosenArmy={setChosenArmy}
+              // navigateToChosenArmy={navigateToChosenArmy}
             />
           }
         />
@@ -154,11 +162,15 @@ function App() {
             >
               <Army
                 chosenArmy={chosenArmy}
-                setModelFormData={setModelFormData}
-                modelFormData={modelFormData}
+                // setModelFormData={setModelFormData}
+                // modelFormData={modelFormData}
               />
             </Grid>
           }
+        />
+        <Route
+        path="/all_models_list"
+        element={<AllModelsList armies={armies}/>}
         />
       </Routes>
     </div>

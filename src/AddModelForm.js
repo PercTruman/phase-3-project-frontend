@@ -15,11 +15,10 @@ function AddModelForm({
 
 
 
-  function handleArmyDropDownChange(e) {
-    console.log(e.target.value)
-    const selectedArmy = armies.filter((army) => army.id === e.target.value);
-    console.log(selectedArmy)
-  }
+  // function handleArmyDropDownChange(e) {
+  //   const selectedArmy = armies.filter((army) => army.id === e.target.value);
+  
+  // }
   // handleModelFormChange(e, modelFormData, selectedArmy)
   return (
     <form
