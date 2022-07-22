@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useParams} from 'react-router-dom'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -9,8 +10,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export default function FormDialog({model}) {
   const [open, setOpen] = React.useState(false);
-  
 
+  let {armyId} = useParams()
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -21,21 +22,25 @@ export default function FormDialog({model}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // handleUpdateModel(modelEditFormData)
-    fetch(`http://localhost:9292/all_models_list/${e.target.id}`,{
-        method: 'PATCH',
-        headers:{"Content-Type": "application/json"},
-        body: JSON.stringify({
-            name: "",
-            number_in_collection: 0,
-            cost_per_box: 0,
-            unit_points_cost: 0
-        }),
-    })
+    console.log(e.target)
+    handleEditModel(modelEditFormData)
+  }
+   
+    function handleEditModel(formData){
+      fetch(`http://localhost:9292/:armyId/:modelId`,{
+          method: 'PATCH',
+          headers:{"Content-Type": "application/json"},
+          body: JSON.stringify({
+              name: {formData.name},
+              number_in_collection: 0,
+              cost_per_box: 0,
+              unit_points_cost: 0
+          }),
+    })}
     .then(res => res.json())
     .then(updatedModel=>alert(`${updatedModel} updated.`))
-    // setOpen(false);
-  };
+    // // setOpen(false);
+  // };
 
   return (
     <div>

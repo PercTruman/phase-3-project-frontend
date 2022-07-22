@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import Home from "./Home";
 import Army from "./Army";
 import Grid from "@mui/material/Grid";
@@ -34,6 +34,7 @@ function App() {
   })
  
   let navigate = useNavigate();
+  let {armyId} = useParams()
 
   useEffect(() => {
     fetch("http://localhost:9292").then((response) =>
@@ -153,7 +154,7 @@ function App() {
           }
         />
         <Route
-          path="/army/:id"
+          path="army/:armyId"
           element={
             <Grid
               container
@@ -162,6 +163,8 @@ function App() {
             >
               <Army
                 chosenArmy={chosenArmy}
+                modelEditFormData={modelEditFormData}
+                setModelEditFormData={setModelEditFormData}
                 // setModelFormData={setModelFormData}
                 // modelFormData={modelFormData}
               />

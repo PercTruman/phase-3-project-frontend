@@ -12,7 +12,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function Army({ chosenArmy }) {
+function Army({ chosenArmy, modelEditFormData, setModelEditFormData }) {
   // const models = chosenArmy.army_models;
 
   const armyBlockStyle = {
@@ -39,7 +39,7 @@ function Army({ chosenArmy }) {
         <h3>Number in Collection: {model.number_in_collection}</h3>
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
-        <FormDialog model={model}/>
+        <FormDialog model={model} modelEditFormData={modelEditFormData} setModelEditFormData={setModelEditFormData}/>
       </Item>
     </Grid>
   ));
