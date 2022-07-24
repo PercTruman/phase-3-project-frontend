@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useParams} from 'react-router-dom'
+import {useParams, NavLink} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -8,7 +8,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function FormDialog({model}) {
+
+ function FormDialog({model}) {
   const [open, setOpen] = React.useState(false);
 
   let {armyId} = useParams()
@@ -23,7 +24,7 @@ export default function FormDialog({model}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target)
-    handleEditModel(modelEditFormData)
+    // handleEditModel(modelEditFormData)
   }
    
     function handleEditModel(formData){
@@ -31,22 +32,22 @@ export default function FormDialog({model}) {
           method: 'PATCH',
           headers:{"Content-Type": "application/json"},
           body: JSON.stringify({
-              name: {formData.name},
+              // name: {formData.name},
               number_in_collection: 0,
               cost_per_box: 0,
               unit_points_cost: 0
           }),
     })}
-    .then(res => res.json())
-    .then(updatedModel=>alert(`${updatedModel} updated.`))
+    // .then(res => res.json())
+    // .then(updatedModel=>alert(`${updatedModel} updated.`))
     // // setOpen(false);
   // };
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen}>
+      <NavLink to= "/" onClick={handleClickOpen}>
        Edit {model.name}
-      </Button>
+      </NavLink>
      
         <Dialog open={open} onClose={handleClose}>
         <form onSubmit={e=>handleSubmit(e)}id={model.id}>
@@ -102,3 +103,5 @@ export default function FormDialog({model}) {
     </div>
   );
 }
+
+export default FormDialog;

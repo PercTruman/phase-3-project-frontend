@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -12,7 +13,14 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function Army({ chosenArmy, modelEditFormData, setModelEditFormData }) {
+// const [modelEditFormData, setModelEditFormData] = useState({
+//   name: "",
+//   number_in_collection: 0,
+//   cost_per_box: 0,
+//   unit_points_cost: 0,
+// });
+
+function Army({ chosenArmy }) {
   const armyBlockStyle = {
     color: "red",
     textAlign: "center",
@@ -27,8 +35,8 @@ function Army({ chosenArmy, modelEditFormData, setModelEditFormData }) {
         <h3>Unit points cost: {model.unit_points_cost}</h3>
         <FormDialog
           model={model}
-          modelEditFormData={modelEditFormData}
-          setModelEditFormData={setModelEditFormData}
+          // modelEditFormData={modelEditFormData}
+          // setModelEditFormData={setModelEditFormData}
         />
       </Item>
     </Grid>

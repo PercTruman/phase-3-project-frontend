@@ -10,6 +10,8 @@ import AddModelForm from "./AddModelForm";
 import AllModelsList from "./AllModelsList";
 
 function App() {
+
+  // State variables
   const [armies, setArmies] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
   const [armyFormData, setArmyFormData] = useState({
@@ -26,21 +28,19 @@ function App() {
     army_id: ''
   });
 
-  const [modelEditFormData, setModelEditFormData] = useState({
-    name: "",
-    number_in_collection: 0,
-    cost_per_box: 0,
-    unit_points_cost: 0,
-  })
+///////////////////////////////////////////
  
   let navigate = useNavigate();
-  let {armyId} = useParams()
+  let {armyId} = useParams();
+
+  // Gets all armies and associated models from DB
 
   useEffect(() => {
     fetch("http://localhost:9292").then((response) =>
       response.json().then((fullArmyData) =>setArmies(fullArmyData))
     );
   }, []);
+  ////////////////////////////////////////////
 
 
   function onHandleChange(e) {
@@ -78,7 +78,9 @@ function App() {
       .then((addedArmy) => setArmies([...armies, addedArmy]));
   }
 
-  // Controlled Form Submit Functions for Models
+  ////////////////////////////////////////////////////////////////////////
+
+  // Controlled Form Submit Functions for Adding Models to DB
 
   function handleModelFormChange(e) {
     setModelFormData({ ...modelFormData, [e.target.name]: e.target.value });
@@ -107,6 +109,8 @@ function App() {
       .then(addedModel => alert(`${addedModel.name} has been added to your roster.`))
   }
 
+  //////////////////////////////////////////////////////////////////////// 
+
   return (
     <div
       style={{
@@ -126,9 +130,6 @@ function App() {
             <Home
               armies={armies}
               handleChange={onHandleChange}
-              // chosenArmy={chosenArmy}
-              // setChosenArmy={setChosenArmy}
-              // navigateToChosenArmy={navigateToChosenArmy}
             />
           }
         />
@@ -163,10 +164,6 @@ function App() {
             >
               <Army
                 chosenArmy={chosenArmy}
-                modelEditFormData={modelEditFormData}
-                setModelEditFormData={setModelEditFormData}
-                // setModelFormData={setModelFormData}
-                // modelFormData={modelFormData}
               />
             </Grid>
           }

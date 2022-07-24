@@ -7,19 +7,16 @@ function AddModelForm({
   modelFormData,
   armies,
 }) {
+
+  // Dynamically generates the options for the drop down Menu
   const dropDownOptions = armies.map((army) => (
     <option type="integer" key={army.name} name="army_id" value={army.id} >
       {army.name}
     </option>
   ));
+/////////////////////////////////////////////////////////
 
 
-
-  // function handleArmyDropDownChange(e) {
-  //   const selectedArmy = armies.filter((army) => army.id === e.target.value);
-  
-  // }
-  // handleModelFormChange(e, modelFormData, selectedArmy)
   return (
     <form
       onSubmit={handleModelFormSubmit}
