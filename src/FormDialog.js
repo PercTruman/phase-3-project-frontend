@@ -45,7 +45,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
   return (
     <div>
-      <NavLink to= "/" onClick={handleClickOpen}>
+      <NavLink to= "/edit_models/:modelId" onClick={handleClickOpen}>
        Edit {model.name}
       </NavLink>
      

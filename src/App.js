@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import mortarion from "./images/mortarion.jpg";
 import AddArmyForm from "./AddArmyForm";
 import AddModelForm from "./AddModelForm";
-import AllModelsList from "./AllModelsList";
+import EditModelForm from "./EditModelForm";
 
 function App() {
 
@@ -169,9 +169,9 @@ function App() {
           }
         />
         <Route
-        path="/all_models_list"
-        element={<AllModelsList armies={armies}/>}
-        />
+          path="/edit_models/:modelId"
+          element={<EditModelForm />}
+          />
       </Routes>
     </div>
   );
