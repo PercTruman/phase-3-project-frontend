@@ -1,13 +1,13 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-export default function FormDialog({model}) {
+export default function FormDialog({ model, handleDialogFormChange, updateModelDatabase, dialogFormData }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -18,14 +18,18 @@ export default function FormDialog({model}) {
     setOpen(false);
   };
 
-  function handleSubmit(e){
-      e.preventDefault()
+  function handleSubmit(e) {
+    console.log(e)
+    e.preventDefault();
+    updateModelDatabase(e);
   }
+
+
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Edit {model.name} 
+      <Button variant="contained" onClick={handleClickOpen}>
+        Edit {model.name}
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Edit {model.name}</DialogTitle>
@@ -34,6 +38,8 @@ export default function FormDialog({model}) {
             To edit this model, make the necessary changes, then click "Update."
           </DialogContentText>
           <TextField
+            name={dialogFormData.name}
+            onChange={handleDialogFormChange}
             margin="dense"
             id="name"
             label="Name"
@@ -43,6 +49,8 @@ export default function FormDialog({model}) {
             defaultValue={model.name}
           />
           <TextField
+            name={dialogFormData.number_in_collection}
+            onChange={handleDialogFormChange}
             margin="dense"
             id="number_in_collection"
             label="Number in Collection"
@@ -52,6 +60,8 @@ export default function FormDialog({model}) {
             defaultValue={model.number_in_collection}
           />
           <TextField
+            name={dialogFormData.cost_per_box}
+            onChange={handleDialogFormChange}
             margin="dense"
             id="cost_per_box"
             label="Cost Per Box"
@@ -61,6 +71,8 @@ export default function FormDialog({model}) {
             defaultValue={model.cost_per_box}
           />
           <TextField
+            name={dialogFormData.unit_points_cost}
+            onChange={handleDialogFormChange}
             margin="dense"
             id="unit_points_cost"
             label="Unit Points Cost"
@@ -72,7 +84,9 @@ export default function FormDialog({model}) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Update</Button>
+          <Button id={model.id} onClick={handleSubmit}>
+            Update
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 //   unit_points_cost: 0,
 // });
 
-function Army({ chosenArmy }) {
+function Army({ chosenArmy, handleDialogFormChange, dialogFormData, updateModelDatabase }) {
   
   const armyBlockStyle = {
     color: "red",
@@ -34,7 +34,7 @@ function Army({ chosenArmy }) {
         <h3>Number in Collection: {model.number_in_collection}</h3>
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
-        <FormDialog model={model}/>
+        <FormDialog model={model} handleDialogFormChange={handleDialogFormChange} dialogFormData={dialogFormData} updateModelDatabase={updateModelDatabase}/>
       </Item>
      
     </Grid>

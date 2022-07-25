@@ -28,6 +28,13 @@ function App() {
     army_id: ''
   });
 
+  const [dialogFormData, setDialogFormData] = useState({
+    name: "",
+    number_in_collection: 0,
+    cost_per_box: 0,
+    unit_points_cost: 0,
+  });
+
 ///////////////////////////////////////////
  
   let navigate = useNavigate();
@@ -111,6 +118,36 @@ function App() {
 
   //////////////////////////////////////////////////////////////////////// 
 
+  function handleDialogFormChange(e) {
+    setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
+  }
+
+  function handleModelFormSubmit(e) {
+    e.preventDefault();
+    handleAddNewModels(modelFormData);
+    setModelFormData({
+      name: "",
+      image_url: "",
+      number_in_collection: 0,
+      cost_per_box: 0,
+      unit_points_cost: 0,
+      army_id: 0,
+    });
+  }
+
+  const updateModelDatabase = (e) => {
+    fetch(`http://localhost:9292/all_models/${e.target.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        // name: name,
+        // number_in_collection: number_in_collection,
+        // cost_per_box: cost_per_box,
+        // unit_points_cost: unit_points_cost,
+      }),
+    });
+  };
+
   return (
     <div
       style={{
@@ -164,14 +201,17 @@ function App() {
             >
               <Army
                 chosenArmy={chosenArmy}
+                handleDialogFormChange={handleDialogFormChange}
+                dialogFormData={dialogFormData}
+                updateModelDatabase={updateModelDatabase}
               />
             </Grid>
           }
         />
-        <Route
-          path="/edit_models/:modelId"
+        {/* <Route
+          path="/all_models/:modelId"
           element={<FormDialog/>}
-          />
+          /> */}
       </Routes>
     </div>
   );
