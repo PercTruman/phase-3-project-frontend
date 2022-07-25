@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useParams, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -9,10 +9,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
+
  function FormDialog({model}) {
   const [open, setOpen] = React.useState(false);
 
-  let {armyId} = useParams()
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -45,9 +46,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 
   return (
     <div>
-      <NavLink to= "/edit_models/:modelId" onClick={handleClickOpen}>
+      <Button variant="contained" component={NavLink} to="/edit_models/:modelId"onClick={handleClickOpen}>
        Edit {model.name}
-      </NavLink>
+      </Button>
      
         <Dialog open={open} onClose={handleClose}>
         <form onSubmit={e=>handleSubmit(e)}id={model.id}>

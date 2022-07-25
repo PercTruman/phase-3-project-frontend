@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import mortarion from "./images/mortarion.jpg";
 import AddArmyForm from "./AddArmyForm";
 import AddModelForm from "./AddModelForm";
-import EditModelForm from "./EditModelForm";
+import FormDialog from "./FormDialog";
 
 function App() {
 
@@ -170,7 +170,7 @@ function App() {
         />
         <Route
           path="/edit_models/:modelId"
-          element={<EditModelForm />}
+          element={<FormDialog/>}
           />
       </Routes>
     </div>
