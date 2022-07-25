@@ -14,7 +14,7 @@ function AddModelForm({
       {army.name}
     </option>
   ));
-/////////////////////////////////////////////////////////
+
 
 
   return (

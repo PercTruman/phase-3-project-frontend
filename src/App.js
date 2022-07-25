@@ -109,6 +109,22 @@ function App() {
       .then(addedModel => alert(`${addedModel.name} has been added to your roster.`))
   }
 
+  function handleEditModel(formData){
+    fetch(`http://localhost:9292/:armyId/:modelId`,{
+        method: 'PATCH',
+        headers:{"Content-Type": "application/json"},
+        body: JSON.stringify({
+            // name: name,
+            // number_in_collection: number_in_collection,
+            // cost_per_box: cost_per_box,
+            // unit_points_cost: unit_points_cost,
+        }),
+  })}
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
+
   //////////////////////////////////////////////////////////////////////// 
 
   return (
