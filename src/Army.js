@@ -1,5 +1,4 @@
 import * as React from "react";
-import { NavLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -22,6 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
 // });
 
 function Army({ chosenArmy }) {
+  
   const armyBlockStyle = {
     color: "red",
     textAlign: "center",
@@ -35,7 +35,6 @@ function Army({ chosenArmy }) {
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
         <FormDialog model={model}/>
-        {/* <NavLink to="/:armyId/:modelId">Update </NavLink> */}
       </Item>
      
     </Grid>
