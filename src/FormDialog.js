@@ -18,6 +18,10 @@ export default function FormDialog({model}) {
     setOpen(false);
   };
 
+  function handleSubmit(e){
+      e.preventDefault()
+  }
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -36,6 +40,7 @@ export default function FormDialog({model}) {
             type="text"
             fullWidth
             variant="standard"
+            defaultValue={model.name}
           />
           <TextField
             margin="dense"
@@ -44,6 +49,7 @@ export default function FormDialog({model}) {
             type="number"
             fullWidth
             variant="standard"
+            defaultValue={model.number_in_collection}
           />
           <TextField
             margin="dense"
@@ -52,6 +58,7 @@ export default function FormDialog({model}) {
             type="number"
             fullWidth
             variant="standard"
+            defaultValue={model.cost_per_box}
           />
           <TextField
             margin="dense"
@@ -60,11 +67,12 @@ export default function FormDialog({model}) {
             type="number"
             fullWidth
             variant="standard"
+            defaultValue={model.unit_points_cost}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleSubmit}>Update</Button>
         </DialogActions>
       </Dialog>
     </div>
