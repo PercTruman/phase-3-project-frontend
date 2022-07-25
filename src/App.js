@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
-import { Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { Routes, Route, useNavigate} from "react-router-dom";
 import Home from "./Home";
 import Army from "./Army";
 import Grid from "@mui/material/Grid";
 import mortarion from "./images/mortarion.jpg";
 import AddArmyForm from "./AddArmyForm";
 import AddModelForm from "./AddModelForm";
-import FormDialog from "./FormDialog";
+import AllModelsList from "./AllModelsList";
+
 
 function App() {
 
   // State variables
   const [armies, setArmies] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
+  const [models, setModels] = useState([]);
   const [armyFormData, setArmyFormData] = useState({
     name: "",
     alignment: "",
@@ -36,17 +38,21 @@ function App() {
   });
 
 
-  console.log(dialogFormData)
 ///////////////////////////////////////////
  
   let navigate = useNavigate();
-  let {armyId} = useParams();
 
   // Gets all armies and associated models from DB
 
   useEffect(() => {
     fetch("http://localhost:9292").then((response) =>
       response.json().then((fullArmyData) =>setArmies(fullArmyData))
+    );
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:9292/all_models").then((response) =>
+      response.json().then((modelsData) =>setModels(modelsData))
     );
   }, []);
   ////////////////////////////////////////////
@@ -150,7 +156,7 @@ function App() {
       }),
     })
     .then(res => res.json())
-    .then(update => alert(`${update.name} updated successfully.`))
+    .then(updatedModel => alert(`${updatedModel.name} updated successfully.`))
   };
 
   return (
@@ -213,10 +219,10 @@ function App() {
             </Grid>
           }
         />
-        {/* <Route
-          path="/all_models/:modelId"
-          element={<FormDialog/>}
-          /> */}
+        <Route
+          path="/all_models"
+          element={<AllModelsList  models={models} setModels={setModels}/>}
+          />
       </Routes>
     </div>
   );
