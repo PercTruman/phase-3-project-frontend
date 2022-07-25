@@ -19,9 +19,9 @@ export default function FormDialog({ model, handleDialogFormChange, updateModelD
   };
 
   function handleSubmit(e) {
-    console.log(e)
     e.preventDefault();
-    updateModelDatabase(e);
+    updateModelDatabase(e,dialogFormData);
+    handleClose();
   }
 
 
@@ -32,13 +32,15 @@ export default function FormDialog({ model, handleDialogFormChange, updateModelD
         Edit {model.name}
       </Button>
       <Dialog open={open} onClose={handleClose}>
+        <form onSubmit={handleSubmit} >
         <DialogTitle>Edit {model.name}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To edit this model, make the necessary changes, then click "Update."
           </DialogContentText>
           <TextField
-            name={dialogFormData.name}
+            value={dialogFormData.name}
+            name="name"
             onChange={handleDialogFormChange}
             margin="dense"
             id="name"
@@ -46,10 +48,11 @@ export default function FormDialog({ model, handleDialogFormChange, updateModelD
             type="text"
             fullWidth
             variant="standard"
-            defaultValue={model.name}
+       
           />
           <TextField
-            name={dialogFormData.number_in_collection}
+            value={dialogFormData.number_in_collection}
+            name="number_in_collection"
             onChange={handleDialogFormChange}
             margin="dense"
             id="number_in_collection"
@@ -57,10 +60,11 @@ export default function FormDialog({ model, handleDialogFormChange, updateModelD
             type="number"
             fullWidth
             variant="standard"
-            defaultValue={model.number_in_collection}
+         
           />
           <TextField
-            name={dialogFormData.cost_per_box}
+            value={dialogFormData.cost_per_box}
+            name="cost_per_box"
             onChange={handleDialogFormChange}
             margin="dense"
             id="cost_per_box"
@@ -68,10 +72,11 @@ export default function FormDialog({ model, handleDialogFormChange, updateModelD
             type="number"
             fullWidth
             variant="standard"
-            defaultValue={model.cost_per_box}
+          
           />
           <TextField
-            name={dialogFormData.unit_points_cost}
+            value={dialogFormData.unit_points_cost}
+            name="unit_points_cost"
             onChange={handleDialogFormChange}
             margin="dense"
             id="unit_points_cost"
@@ -79,15 +84,16 @@ export default function FormDialog({ model, handleDialogFormChange, updateModelD
             type="number"
             fullWidth
             variant="standard"
-            defaultValue={model.unit_points_cost}
+  
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button id={model.id} onClick={handleSubmit}>
+          <Button type="submit"id={model.id} >
             Update
           </Button>
         </DialogActions>
+        </form>
       </Dialog>
     </div>
   );

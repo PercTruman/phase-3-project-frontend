@@ -35,6 +35,8 @@ function App() {
     unit_points_cost: 0,
   });
 
+
+  console.log(dialogFormData)
 ///////////////////////////////////////////
  
   let navigate = useNavigate();
@@ -135,17 +137,20 @@ function App() {
     });
   }
 
-  const updateModelDatabase = (e) => {
+  const updateModelDatabase = (e, dialogFormData) => {
+    console.log(dialogFormData)
     fetch(`http://localhost:9292/all_models/${e.target.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        // name: name,
-        // number_in_collection: number_in_collection,
-        // cost_per_box: cost_per_box,
-        // unit_points_cost: unit_points_cost,
+        name: dialogFormData.name,
+        number_in_collection: dialogFormData.number_in_collection,
+        cost_per_box: dialogFormData.cost_per_box,
+        unit_points_cost: dialogFormData.unit_points_cost
       }),
-    });
+    })
+    .then(res => res.json())
+    .then(update => alert(`${update.name} updated successfully.`))
   };
 
   return (
