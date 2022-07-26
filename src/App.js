@@ -31,10 +31,8 @@ function App() {
   });
 
   const [dialogFormData, setDialogFormData] = useState({
-    name: "",
     number_in_collection: 0,
-    cost_per_box: 0,
-    unit_points_cost: 0,
+    unit_points_cost: 0
   });
 
 
@@ -50,11 +48,11 @@ function App() {
     );
   }, []);
 
-  useEffect(() => {
-    fetch("http://localhost:9292/all_models").then((response) =>
-      response.json().then((modelsData) =>setModels(modelsData))
-    );
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:9292/all_models").then((response) =>
+  //     response.json().then((modelsData) =>setModels(modelsData))
+  //   );
+  // }, []);
   ////////////////////////////////////////////
 
 
@@ -126,38 +124,38 @@ function App() {
 
   //////////////////////////////////////////////////////////////////////// 
 
+   // Controlled Form Submit Functions for UPDATING Models in DB
+
   function handleDialogFormChange(e) {
     setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
   }
 
-  function handleModelFormSubmit(e) {
+  function handleDialogFormSubmit(e, modelId) {
     e.preventDefault();
-    handleAddNewModels(modelFormData);
+    updateModels(dialogFormData, modelId);
     setModelFormData({
-      name: "",
-      image_url: "",
       number_in_collection: 0,
-      cost_per_box: 0,
       unit_points_cost: 0,
-      army_id: 0,
-    });
+     });
   }
 
-  const updateModelDatabase = (e, dialogFormData) => {
-    console.log(dialogFormData)
-    fetch(`http://localhost:9292/all_models/${e.target.id}`, {
+  const updateModels = (dialogFormData,modelId) => {
+    fetch(`http://localhost:9292/all_models/${modelId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name: dialogFormData.name,
         number_in_collection: dialogFormData.number_in_collection,
-        cost_per_box: dialogFormData.cost_per_box,
         unit_points_cost: dialogFormData.unit_points_cost
       }),
     })
     .then(res => res.json())
     .then(updatedModel => alert(`${updatedModel.name} updated successfully.`))
   };
+
+  const deleteModel =(e) =>{
+    fetch(`http://localhost:9292/all_models/${e.target.id}`, {
+      method: "DELETE",
+  })}
 
   return (
     <div
@@ -214,14 +212,15 @@ function App() {
                 chosenArmy={chosenArmy}
                 handleDialogFormChange={handleDialogFormChange}
                 dialogFormData={dialogFormData}
-                updateModelDatabase={updateModelDatabase}
+                handleDialogFormSubmit={handleDialogFormSubmit} 
+                updateModels={updateModels}
               />
             </Grid>
           }
         />
         <Route
           path="/all_models"
-          element={<AllModelsList  models={models} setModels={setModels}/>}
+          element={<AllModelsList  models={models} setModels={setModels} handleDelete={deleteModel}/>}
           />
       </Routes>
     </div>
