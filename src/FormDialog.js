@@ -11,9 +11,9 @@ export default function FormDialog({
   model,
   updateModels,
   handleDialogFormChange,
-  updateModelDatabase,
+  handleModelDelete,
   dialogFormData,
-  handleDialogFormSubmit
+  handleDialogFormSubmit,
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -25,26 +25,20 @@ export default function FormDialog({
     setOpen(false);
   };
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   updateModels(e, dialogFormData);
-  //   handleClose();
-  // }
-
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
         Edit {model.name}
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={e=> handleDialogFormSubmit(e, model.id)}>
+        <form onSubmit={(e) => handleDialogFormSubmit(e, model.id)}>
           <DialogTitle>Edit {model.name}</DialogTitle>
           <DialogContent>
             <DialogContentText>
               To edit this model, make the necessary changes, then click
               "Update."
             </DialogContentText>
-          
+
             <TextField
               value={dialogFormData.number_in_collection}
               name="number_in_collection"
@@ -56,7 +50,7 @@ export default function FormDialog({
               fullWidth
               variant="standard"
             />
-          
+
             <TextField
               value={dialogFormData.unit_points_cost}
               name="unit_points_cost"
@@ -74,6 +68,7 @@ export default function FormDialog({
             <Button type="submit" id={model.id}>
               Update
             </Button>
+            <Button onClick={()=>handleModelDelete(model.id)}>Delete</Button>
           </DialogActions>
         </form>
       </Dialog>

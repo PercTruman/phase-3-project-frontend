@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
-import { Routes, Route, useNavigate} from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./Home";
 import Army from "./Army";
 import Grid from "@mui/material/Grid";
 import mortarion from "./images/mortarion.jpg";
 import AddArmyForm from "./AddArmyForm";
 import AddModelForm from "./AddModelForm";
-import AllModelsList from "./AllModelsList";
-
 
 function App() {
-
   // State variables
   const [armies, setArmies] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
-  const [models, setModels] = useState([]);
   const [armyFormData, setArmyFormData] = useState({
     name: "",
     alignment: "",
@@ -27,24 +23,23 @@ function App() {
     number_in_collection: 0,
     cost_per_box: 0,
     unit_points_cost: 0,
-    army_id: ''
+    army_id: "",
   });
 
   const [dialogFormData, setDialogFormData] = useState({
     number_in_collection: 0,
-    unit_points_cost: 0
+    unit_points_cost: 0,
   });
 
+  ///////////////////////////////////////////
 
-///////////////////////////////////////////
- 
   let navigate = useNavigate();
 
   // Gets all armies and associated models from DB
 
   useEffect(() => {
     fetch("http://localhost:9292").then((response) =>
-      response.json().then((fullArmyData) =>setArmies(fullArmyData))
+      response.json().then((fullArmyData) => setArmies(fullArmyData))
     );
   }, []);
 
@@ -54,7 +49,6 @@ function App() {
   //   );
   // }, []);
   ////////////////////////////////////////////
-
 
   function onHandleChange(e) {
     const foundArmy = armies.find((army) => army.name === e.target.value);
@@ -119,12 +113,14 @@ function App() {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then(addedModel => alert(`${addedModel.name} has been added to your roster.`))
+      .then((addedModel) =>
+        alert(`${addedModel.name} has been added to your roster.`)
+      );
   }
 
-  //////////////////////////////////////////////////////////////////////// 
+  ////////////////////////////////////////////////////////////////////////
 
-   // Controlled Form Submit Functions for UPDATING Models in DB
+  // Controlled Form Submit Functions for UPDATING Models in DB
 
   function handleDialogFormChange(e) {
     setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
@@ -136,26 +132,33 @@ function App() {
     setModelFormData({
       number_in_collection: 0,
       unit_points_cost: 0,
-     });
+    });
   }
 
-  const updateModels = (dialogFormData,modelId) => {
+  const updateModels = (dialogFormData, modelId) => {
     fetch(`http://localhost:9292/all_models/${modelId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         number_in_collection: dialogFormData.number_in_collection,
-        unit_points_cost: dialogFormData.unit_points_cost
+        unit_points_cost: dialogFormData.unit_points_cost,
       }),
     })
-    .then(res => res.json())
-    .then(updatedModel => alert(`${updatedModel.name} updated successfully.`))
+      .then((res) => res.json())
+      .then((updatedModel) =>
+        alert(`${updatedModel.name} updated successfully.`)
+      );
   };
 
-  const deleteModel =(e) =>{
-    fetch(`http://localhost:9292/all_models/${e.target.id}`, {
+  const handleModelDelete = (modelId) => {
+    fetch(`http://localhost:9292/all_models/${modelId}`, {
       method: "DELETE",
-  })}
+    })
+      .then((res) => res.json())
+      .then((deletedModel) =>
+        alert(`${deletedModel.name} deleted successfully.`)
+      );
+  };
 
   return (
     <div
@@ -165,19 +168,14 @@ function App() {
         height: "100vh",
         width: "auto",
         backgroundRepeat: "no-repeat",
-        backgroundSize: "cover"
+        backgroundSize: "cover",
       }}
     >
       <NavBar />
       <Routes>
         <Route
           path="/"
-          element={
-            <Home
-              armies={armies}
-              handleChange={onHandleChange}
-            />
-          }
+          element={<Home armies={armies} handleChange={onHandleChange} />}
         />
         <Route
           path="/add_new_army"
@@ -212,16 +210,13 @@ function App() {
                 chosenArmy={chosenArmy}
                 handleDialogFormChange={handleDialogFormChange}
                 dialogFormData={dialogFormData}
-                handleDialogFormSubmit={handleDialogFormSubmit} 
+                handleDialogFormSubmit={handleDialogFormSubmit}
                 updateModels={updateModels}
+                handleModelDelete={handleModelDelete}
               />
             </Grid>
           }
         />
-        <Route
-          path="/all_models"
-          element={<AllModelsList  models={models} setModels={setModels} handleDelete={deleteModel}/>}
-          />
       </Routes>
     </div>
   );

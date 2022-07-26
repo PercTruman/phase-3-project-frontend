@@ -4,7 +4,6 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import FormDialog from "./FormDialog";
 
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -20,8 +19,14 @@ const Item = styled(Paper)(({ theme }) => ({
 //   unit_points_cost: 0,
 // });
 
-function Army({ chosenArmy, handleDialogFormChange, dialogFormData,  handleDialogFormSubmit, updateModels }) {
-  
+function Army({
+  chosenArmy,
+  handleDialogFormChange,
+  dialogFormData,
+  handleDialogFormSubmit,
+  updateModels,
+  handleModelDelete,
+}) {
   const armyBlockStyle = {
     color: "red",
     textAlign: "center",
@@ -34,9 +39,15 @@ function Army({ chosenArmy, handleDialogFormChange, dialogFormData,  handleDialo
         <h3>Number in Collection: {model.number_in_collection}</h3>
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
-        <FormDialog model={model} handleDialogFormChange={handleDialogFormChange} dialogFormData={dialogFormData} handleDialogFormSubmit={handleDialogFormSubmit} updateModels={updateModels}/>
+        <FormDialog
+          model={model}
+          handleDialogFormChange={handleDialogFormChange}
+          dialogFormData={dialogFormData}
+          handleDialogFormSubmit={handleDialogFormSubmit}
+          handleModelDelete={handleModelDelete}
+          updateModels={updateModels}
+        />
       </Item>
-     
     </Grid>
   ));
 
