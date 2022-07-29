@@ -11,6 +11,7 @@ import AddModelForm from "./AddModelForm";
 function App() {
   // State variables
   const [armies, setArmies] = useState([]);
+  const [updatedModel, setUpdatedModel] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
   const [armyFormData, setArmyFormData] = useState({
     name: "",
@@ -43,11 +44,7 @@ function App() {
     );
   }, []);
 
-  // useEffect(() => {
-  //   fetch("http://localhost:9292/all_models").then((response) =>
-  //     response.json().then((modelsData) =>setModels(modelsData))
-  //   );
-  // }, []);
+
   ////////////////////////////////////////////
 
   function onHandleChange(e) {
@@ -136,6 +133,7 @@ function App() {
   }
 
   const updateModels = (dialogFormData, modelId) => {
+    const model = models.filter(model=>model.id === modelId);
     fetch(`http://localhost:9292/all_models/${modelId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -145,9 +143,10 @@ function App() {
       }),
     })
       .then((res) => res.json())
-      .then((updatedModel) =>
+      .then((updatedModel) =>{
+        setUpdatedModel(...model, updatedModel.number_in_collection, updatedModel.unit_points_cost)
         alert(`${updatedModel.name} updated successfully.`)
-      );
+       } );
   };
 
   const handleModelDelete = (modelId) => {
@@ -207,6 +206,7 @@ function App() {
               sx={{ width: "100%", display: "flex", justifyContent: "center" }}
             >
               <Army
+                updatedModel={updatedModel}
                 chosenArmy={chosenArmy}
                 handleDialogFormChange={handleDialogFormChange}
                 dialogFormData={dialogFormData}

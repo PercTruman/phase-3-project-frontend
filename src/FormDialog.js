@@ -9,7 +9,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 export default function FormDialog({
   model,
-  updateModels,
   handleDialogFormChange,
   handleModelDelete,
   dialogFormData,
@@ -25,13 +24,20 @@ export default function FormDialog({
     setOpen(false);
   };
 
+  const submitForUpdate= (e)=>{
+    setUpdatedModel(model)
+    handleDialogFormSubmit(e, model.id);
+    handleClose();
+  }
+
+
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
         Edit {model.name}
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={(e) => handleDialogFormSubmit(e, model.id)}>
+        <form onSubmit={(e)=>submitForUpdate(e, model.id)}>
           <DialogTitle>Edit {model.name}</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -68,7 +74,7 @@ export default function FormDialog({
             <Button type="submit" id={model.id}>
               Update
             </Button>
-            <Button onClick={()=>handleModelDelete(model.id)}>Delete</Button>
+            <Button onClick={()=> {handleModelDelete(model.id); handleClose();}}>Delete</Button>
           </DialogActions>
         </form>
       </Dialog>

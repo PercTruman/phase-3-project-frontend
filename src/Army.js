@@ -12,14 +12,11 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-// const [modelEditFormData, setModelEditFormData] = useState({
-//   name: "",
-//   number_in_collection: 0,
-//   cost_per_box: 0,
-//   unit_points_cost: 0,
-// });
+
 
 function Army({
+  updatedModel,
+ 
   chosenArmy,
   handleDialogFormChange,
   dialogFormData,
@@ -40,6 +37,8 @@ function Army({
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
         <FormDialog
+         updatedModel={updatedModel}
+      
           model={model}
           handleDialogFormChange={handleDialogFormChange}
           dialogFormData={dialogFormData}

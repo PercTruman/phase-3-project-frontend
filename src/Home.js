@@ -4,8 +4,9 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Army from "./Army";
 
-function Home({ armies, handleChange }) {
+function Home({ armies, handleChange}) {
   const dropDownOptions = armies.map((army) => (
     <MenuItem key={army.name} value={army.name} id={army.id}>
       {army.name}
