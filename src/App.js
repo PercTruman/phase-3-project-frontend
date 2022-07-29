@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Home from "./Home";
 import Army from "./Army";
 import Grid from "@mui/material/Grid";
 import mortarion from "./images/mortarion.jpg";
@@ -144,7 +143,6 @@ function App() {
     })
       .then((res) => res.json())
       .then((updatedModel) =>{
-        // setUpdatedModel(...model, updatedModel.number_in_collection, updatedModel.unit_points_cost)
         alert(`${updatedModel.name} updated successfully.`)
        } );
   };
@@ -170,12 +168,8 @@ function App() {
         backgroundSize: "cover",
       }}
     >
-      <NavBar />
+      <NavBar handleChange={onHandleChange}  armies={armies}/>
       <Routes>
-        <Route
-          path="/"
-          element={<Home armies={armies} handleChange={onHandleChange} />}
-        />
         <Route
           path="/add_new_army"
           element={
