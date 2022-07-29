@@ -25,7 +25,7 @@ export default function FormDialog({
   };
 
   const submitForUpdate= (e)=>{
-    setUpdatedModel(model)
+    // setUpdatedModel(model)
     handleDialogFormSubmit(e, model.id);
     handleClose();
   }

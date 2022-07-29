@@ -11,7 +11,7 @@ import AddModelForm from "./AddModelForm";
 function App() {
   // State variables
   const [armies, setArmies] = useState([]);
-  const [updatedModel, setUpdatedModel] = useState([]);
+  const [updatedArmy, setUpdatedArmy] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
   const [armyFormData, setArmyFormData] = useState({
     name: "",
@@ -39,7 +39,7 @@ function App() {
   // Gets all armies and associated models from DB
 
   useEffect(() => {
-    fetch("http://localhost:9292").then((response) =>
+    fetch("http://localhost:9292/armies").then((response) =>
       response.json().then((fullArmyData) => setArmies(fullArmyData))
     );
   }, []);
@@ -133,8 +133,8 @@ function App() {
   }
 
   const updateModels = (dialogFormData, modelId) => {
-    const model = models.filter(model=>model.id === modelId);
-    fetch(`http://localhost:9292/all_models/${modelId}`, {
+    // const model = models.filter(model=>model.id === modelId);
+    fetch(`http://localhost:9292/armies/${modelId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -144,7 +144,7 @@ function App() {
     })
       .then((res) => res.json())
       .then((updatedModel) =>{
-        setUpdatedModel(...model, updatedModel.number_in_collection, updatedModel.unit_points_cost)
+        // setUpdatedModel(...model, updatedModel.number_in_collection, updatedModel.unit_points_cost)
         alert(`${updatedModel.name} updated successfully.`)
        } );
   };
@@ -206,7 +206,6 @@ function App() {
               sx={{ width: "100%", display: "flex", justifyContent: "center" }}
             >
               <Army
-                updatedModel={updatedModel}
                 chosenArmy={chosenArmy}
                 handleDialogFormChange={handleDialogFormChange}
                 dialogFormData={dialogFormData}

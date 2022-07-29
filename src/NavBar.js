@@ -17,7 +17,6 @@ function NavBar() {
               <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/" color="red" >Home</NavLink>
               <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/add_new_army" color="red" >Add New Army</NavLink>
               <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/add_new_models" color="red" >Add Models</NavLink>
-              <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/all_models" color="red" >View All Models</NavLink>
             </Toolbar>
           </AppBar>
         </Box>
