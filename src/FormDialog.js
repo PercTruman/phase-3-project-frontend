@@ -8,6 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export default function FormDialog({
+  chosenArmy,
   model,
   handleDialogFormChange,
   handleModelDelete,
@@ -24,8 +25,9 @@ export default function FormDialog({
     setOpen(false);
   };
 
-  const submitForUpdate= (e)=>{
-    handleDialogFormSubmit(e, model.id);
+  const submitForUpdate= (e, chosenArmy, modelId)=>{
+    // catching data in the payload
+    handleDialogFormSubmit(e, chosenArmy, modelId);
     handleClose();
   }
 
@@ -36,7 +38,7 @@ export default function FormDialog({
         Edit {model.name}
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={(e)=>submitForUpdate(e, model.id)}>
+        <form onSubmit={(e)=>submitForUpdate(e, chosenArmy, model.id)}>
           <DialogTitle>Edit {model.name}</DialogTitle>
           <DialogContent>
             <DialogContentText>

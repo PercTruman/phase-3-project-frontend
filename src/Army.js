@@ -28,6 +28,7 @@ function Army({
   };
 
   const modelListing = chosenArmy.army_models.map((model) => (
+   
     <Grid key={model.id} item xs={12}>
       <Item sx={{ width: "100%", margin: "20px" }}>
         <h3>Model: {model.name}</h3>
@@ -35,6 +36,7 @@ function Army({
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
         <FormDialog
+          chosenArmy={chosenArmy}
           model={model}
           handleDialogFormChange={handleDialogFormChange}
           dialogFormData={dialogFormData}
