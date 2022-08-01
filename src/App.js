@@ -10,7 +10,6 @@ import AddModelForm from "./AddModelForm";
 function App() {
   // State variables
   const [armies, setArmies] = useState([]);
-  const [updatedArmy, setUpdatedArmy] = useState([]);
   const [chosenArmy, setChosenArmy] = useState({});
   const [armyFormData, setArmyFormData] = useState({
     name: "",
@@ -42,7 +41,6 @@ function App() {
       response.json().then((fullArmyData) => setArmies(fullArmyData))
     );
   }, []);
-
 
   ////////////////////////////////////////////
 
@@ -124,38 +122,34 @@ function App() {
 
   function handleDialogFormSubmit(e, chosenArmy, modelId) {
     e.preventDefault();
-    updateModels(dialogFormData,chosenArmy, modelId);
+    updateModels(dialogFormData, chosenArmy, modelId);
     setModelFormData({
       number_in_collection: 0,
       unit_points_cost: 0,
     });
   }
 
-  const updateModels = (dialogFormData,chosenArmy, modelId) => {
-
+  const updateModels = (dialogFormData, chosenArmy, modelId) => {
     fetch(`http://localhost:9292/army_models/${modelId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-       
         number_in_collection: dialogFormData.number_in_collection,
         unit_points_cost: dialogFormData.unit_points_cost,
       }),
     })
       .then((res) => res.json())
-      .then((newModel) =>{
-
-        alert(`${newModel.name} updated successfully.`)
-        const newArmyModel = chosenArmy.army_models.map(model=>{
+      .then((newModel) => {
+        alert(`${newModel.name} updated successfully.`);
+        const newArmyModel = chosenArmy.army_models.map((model) => {
           if (model.id === newModel.id) {
-            return newModel
+            return newModel;
+          } else {
+            return model;
           }
-          else {
-            return model
-            }
-        })
-        setChosenArmy({...chosenArmy, army_models: newArmyModel})
-       } );
+        });
+        setChosenArmy({ ...chosenArmy, army_models: newArmyModel });
+      });
   };
 
   const handleModelDelete = (modelId) => {
@@ -163,9 +157,11 @@ function App() {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then((deletedModel) =>
-        alert(`${deletedModel.name} deleted successfully.`)
-      );
+      .then((deletedModel) =>{
+        alert(`${deletedModel.name} deleted successfully.`);
+        const updatedModelRoster = chosenArmy.army_models.filter(model => model.id !== deletedModel.id)
+        setChosenArmy({ ...chosenArmy, army_models: updatedModelRoster });
+  });
   };
 
   return (
@@ -179,7 +175,7 @@ function App() {
         backgroundSize: "cover",
       }}
     >
-      <NavBar handleChange={onHandleChange}  armies={armies}/>
+      <NavBar handleChange={onHandleChange} armies={armies} />
       <Routes>
         <Route
           path="/add_new_army"

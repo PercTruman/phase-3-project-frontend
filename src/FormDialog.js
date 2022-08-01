@@ -26,7 +26,6 @@ export default function FormDialog({
   };
 
   const submitForUpdate= (e, chosenArmy, modelId)=>{
-    // catching data in the payload
     handleDialogFormSubmit(e, chosenArmy, modelId);
     handleClose();
   }
