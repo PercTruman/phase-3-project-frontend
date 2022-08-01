@@ -53,7 +53,7 @@ function App() {
   }
 
   function navigateToChosenArmy(army) {
-    navigate(`/army/${army.id}`);
+    navigate(`/armies/${army.id}`);
   }
 
   // Controlled Form Submit Functions for Army
@@ -192,7 +192,7 @@ function App() {
           }
         />
         <Route
-          path="army/:armyId"
+          path="armies/:armyId"
           element={
             <Grid
               container
