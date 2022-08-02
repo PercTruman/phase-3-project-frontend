@@ -27,6 +27,7 @@ function App() {
 
   const [dialogFormData, setDialogFormData] = useState({
     number_in_collection: 0,
+
     unit_points_cost: 0,
   });
 
@@ -101,15 +102,17 @@ function App() {
   }
 
   function handleAddNewModels(formData) {
-    fetch("http://localhost:9292/add_new_models", {
+    fetch("http://localhost:9292/models", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((addedModel) =>
+      .then((addedModel) =>{
+        const updatedModelRoster = [chosenArmy.army_models, addedModel]
+      setChosenArmy({...chosenArmy, army_models: updatedModelRoster})
         alert(`${addedModel.name} has been added to your roster.`)
-      );
+       } );
   }
 
   ////////////////////////////////////////////////////////////////////////
@@ -130,7 +133,7 @@ function App() {
   }
 
   const updateModels = (dialogFormData, chosenArmy, modelId) => {
-    fetch(`http://localhost:9292/army_models/${modelId}`, {
+    fetch(`http://localhost:9292/models/${modelId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -153,7 +156,7 @@ function App() {
   };
 
   const handleModelDelete = (modelId) => {
-    fetch(`http://localhost:9292/all_models/${modelId}`, {
+    fetch(`http://localhost:9292/models/${modelId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
