@@ -41,7 +41,7 @@ function App() {
     fetch("http://localhost:9292/armies").then((response) =>
       response.json().then((fullArmyData) => setArmies(fullArmyData))
     );
-  }, []);
+  }, [chosenArmy]);
 
   ////////////////////////////////////////////
 
@@ -109,7 +109,7 @@ function App() {
     })
       .then((res) => res.json())
       .then((addedModel) =>{
-        const updatedModelRoster = [chosenArmy.army_models, addedModel]
+        const updatedModelRoster = [...chosenArmy.army_models, addedModel]
       setChosenArmy({...chosenArmy, army_models: updatedModelRoster})
         alert(`${addedModel.name} has been added to your roster.`)
        } );
