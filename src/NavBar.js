@@ -4,17 +4,12 @@ import { AppBar } from '@mui/material';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 
-function NavBar({armies, handleChange}) {
-  const dropDownOptions = armies.map((army) => (
-    <MenuItem key={army.name} value={army.name} id={army.id}>
-      {army.name}
-    </MenuItem>
-  ))
+
+
+
+function NavBar() {
+ 
     return (
         <Box sx={{  flexGrow: 1, marginBottom: '3rem'}}>
           <AppBar position="static" sx={{height: '130px'}}>
@@ -30,20 +25,7 @@ function NavBar({armies, handleChange}) {
           margin: "0 auto",
         }}
       >
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Choose Army</InputLabel>
-          <Select
-            type="text"
-            autoWidth
-            labelId="demo-simple-select-label"
-            value=""
-            id="demo-simple-select"
-            label="Choose Army"
-            onChange={handleChange}
-          >
-            {dropDownOptions}
-          </Select>
-        </FormControl>
+    
       </Box>
               <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/armies" color="red" >Home</NavLink>
               <NavLink  style={{ padding: '15px', color: 'yellow'}}to="/add_new_army" color="red" >Add New Army</NavLink>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route,} from "react-router-dom";
 import Army from "./Army";
 import Grid from "@mui/material/Grid";
 import mortarion from "./images/mortarion.jpg";
@@ -31,31 +31,7 @@ function App() {
     unit_points_cost: 0,
   });
 
-  ///////////////////////////////////////////
-
-  let navigate = useNavigate();
-
-  // Gets all armies and associated models from DB
-
-  useEffect(() => {
-    fetch("http://localhost:9292/armies").then((response) =>
-      response.json().then((fullArmyData) => setArmies(fullArmyData))
-    );
-  }, [chosenArmy]);
-
-  ////////////////////////////////////////////
-
-  function onHandleChange(e) {
-    const foundArmy = armies.find((army) => army.name === e.target.value);
-    setChosenArmy(foundArmy);
-    navigateToChosenArmy(foundArmy);
-  }
-
-  function navigateToChosenArmy(army) {
-    navigate(`/armies/${army.id}`);
-  }
-
-  // Controlled Form Submit Functions for Army
+// Controlled Form Submit Functions for Army
   function handleArmyFormChange(e) {
     setArmyFormData({ ...armyFormData, [e.target.name]: e.target.value });
   }
@@ -178,7 +154,7 @@ function App() {
         backgroundSize: "cover",
       }}
     >
-      <NavBar handleChange={onHandleChange} armies={armies} />
+      <NavBar  />
       <Routes>
         <Route
           path="/add_new_army"
@@ -210,6 +186,9 @@ function App() {
               sx={{ width: "100%", display: "flex", justifyContent: "center" }}
             >
               <Army
+                setChosenArmy={setChosenArmy}
+                armies = {armies}
+                setArmies={setArmies}
                 chosenArmy={chosenArmy}
                 handleDialogFormChange={handleDialogFormChange}
                 dialogFormData={dialogFormData}
