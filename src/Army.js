@@ -1,4 +1,6 @@
 import * as React from "react";
+import {useEffect} from  "react"
+import {useParams}from "react-router-dom"
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -15,20 +17,34 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 function Army({
-  chosenArmy,
+  armies,
+  setArmies,
   handleDialogFormChange,
   dialogFormData,
   handleDialogFormSubmit,
   updateModels,
   handleModelDelete,
 }) {
+
+  useEffect(() => {
+    fetch("http://localhost:9292/armies").then((response) =>
+      response.json().then((fullArmyData) => setArmies(fullArmyData))
+    );
+  }, []);
+
+
   const armyBlockStyle = {
     color: "red",
     textAlign: "center",
   };
+let {armyId}=useParams()
 
-  const modelListing = chosenArmy.army_models.map((model) => (
-   
+
+  const displayArmy = armies.find(army => 
+   army.id == armyId)
+
+
+  const displayModels = displayArmy.army_models.map(model =>
     <Grid key={model.id} item xs={12}>
       <Item sx={{ width: "100%", margin: "20px" }}>
         <h3>Model: {model.name}</h3>
@@ -36,7 +52,7 @@ function Army({
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
         <FormDialog
-          chosenArmy={chosenArmy}
+          displayArmy={displayArmy}
           model={model}
           handleDialogFormChange={handleDialogFormChange}
           dialogFormData={dialogFormData}
@@ -46,12 +62,12 @@ function Army({
         />
       </Item>
     </Grid>
-  ));
+  );
 
   return (
     <div style={armyBlockStyle}>
-      <h1 style={{ armyBlockStyle, fontSize: "40px" }}>{chosenArmy.name}</h1>
-      {modelListing}
+      <h1 style={{ armyBlockStyle, fontSize: "40px" }}>{displayArmy.name}</h1>
+      {displayModels}
     </div>
   );
 }
