@@ -210,6 +210,8 @@ function App() {
               sx={{ width: "100%", display: "flex", justifyContent: "center" }}
             >
               <Army
+                armies={armies}
+                setArmies={setArmies}
                 chosenArmy={chosenArmy}
                 handleDialogFormChange={handleDialogFormChange}
                 dialogFormData={dialogFormData}
