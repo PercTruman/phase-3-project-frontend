@@ -202,7 +202,7 @@ function App() {
           }
         />
         <Route
-          path="armies/:armyId"
+         exact path="armies/:armyId"
           element={
             <Grid
               container
