@@ -1,6 +1,6 @@
 import * as React from "react";
-import {useState, useEffect} from  "react"
-import {useParams}from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -14,47 +14,38 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-
-
 function Army({
+  chosenArmy,
   handleDialogFormChange,
   dialogFormData,
   handleDialogFormSubmit,
   updateModels,
   handleModelDelete,
 }) {
- const [selectedArmy, setSelectedArmy] = useState({})
- const [armies, setArmies] = useState({})
-  useEffect(() => {
-    fetch("http://localhost:9292/armies").then((response) =>
-      response.json().then((fullArmyData) => {
-        setArmies(fullArmyData)
-      }
-          )
-          .then( () => {const result = (armies.find(army => 
-            army.id == armyId))
-          setSelectedArmy(result)})
-    );
-  }, []);
-
-
+  const [selectedArmy, setSelectedArmy] = useState({});
+  // const [armies, setArmies] = useState({});
+  // useEffect(() => {
+  //   fetch("http://localhost:9292/armies").then((response) =>
+  //     response
+  //       .json()
+  //       .then((fullArmyData) => {
+  //         setArmies(fullArmyData);
+  //       })
+  //       .then(() => {
+  //         const result = armies.find((army) => army.id == armyId);
+  //         setSelectedArmy(result);
+  //       })
+  //   );
+  // }, []);
 
   const armyBlockStyle = {
     color: "red",
     textAlign: "center",
   };
 
+  // let { armyId } = useParams();
 
-let {armyId}=useParams()
-console.log(armies)
-
-  
- 
-
-
-  const displayModels = 
-  selectedArmy && selectedArmy.army_models && armies ? 
-    selectedArmy.army_models.map(model =>
+  const displayModels = chosenArmy.army_models.map((model) => (
     <Grid key={model.id} item xs={12}>
       <Item sx={{ width: "100%", margin: "20px" }}>
         <h3>Model: {model.name}</h3>
@@ -62,7 +53,8 @@ console.log(armies)
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
         <FormDialog
-          displayArmy={selectedArmy}
+          chosenArmy={chosenArmy}
+          // displayArmy={selectedArmy}
           model={model}
           handleDialogFormChange={handleDialogFormChange}
           dialogFormData={dialogFormData}
@@ -72,11 +64,10 @@ console.log(armies)
         />
       </Item>
     </Grid>
-  ):null;
-
+  ));
   return (
     <div style={armyBlockStyle}>
-      <h1 style={{ armyBlockStyle, fontSize: "40px" }}>{selectedArmy.name}</h1>
+      <h1 style={{ armyBlockStyle, fontSize: "40px" }}>{chosenArmy.name}</h1>
       {displayModels}
     </div>
   );
