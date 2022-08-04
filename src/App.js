@@ -10,7 +10,6 @@ import AddModelForm from "./AddModelForm";
 function App() {
   // State variables
   const [armies, setArmies] = useState([]);
-  const [chosenArmy, setChosenArmy] = useState({});
   const [armyFormData, setArmyFormData] = useState({
     name: "",
     alignment: "",
@@ -50,11 +49,10 @@ function App() {
 
   function onHandleChange(e) {
     const foundArmy = armies.find((army) => army.name === e.target.value);
-    setChosenArmy(foundArmy);
-    navigateToChosenArmy(foundArmy);
+    navigateToFoundArmy(foundArmy);
   }
 
-  function navigateToChosenArmy(army) {
+  function navigateToFoundArmy(army) {
     navigate(`/armies/${army.id}`);
   }
 
@@ -104,42 +102,21 @@ function App() {
     });
   }
 
-  function handleAddNewModels(formData) {
-    fetch("http://localhost:9292/models", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        getArmies();
-      });
+
+
+
+// Functions for rendering DOM after DB updates
+  function updateArmyPageAfterDelete(modelId, armyId) {
+    const targetArmy = armies.find((army) => army.id === armyId);
+    const updatedModelsList = targetArmy.army_models.filter(
+      (model) => model.id !== modelId
+    );
+    const updatedArmy = { ...targetArmy, army_models: updatedModelsList };
+    setArmies(armies.map((army) => (army.id === armyId ? updatedArmy : army)));
   }
 
-  function handleAddNewModelsWithOptimisticResponse(formData) {
-    fetch("http://localhost:9292/models", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((addedModel) =>{
-        const updatedModelRoster = [...chosenArmy.army_models, addedModel]
-      setChosenArmy({...chosenArmy, army_models: updatedModelRoster})
-        alert(`${addedModel.name} has been added to your roster.`)
-       } );
-  }
-
-  function updateArmyPage(modelId, armyId){
-    const targetArmy= armies.find(army => army.id === armyId)
-    const updatedModelsList = targetArmy.army_models.filter(model=>model.id !== modelId)
-    const updatedArmy = {...targetArmy, army_models: updatedModelsList}
-    setArmies(armies.map(army =>
-     army.id === armyId ? updatedArmy : army))
-  }
-
-  function updateArmyPageAfterPatch(newModel, armyId){
-    const targetArmy= armies.find(army => army.id === armyId)
+  function updateArmyPageAfterPatch(newModel, armyId) {
+    const targetArmy = armies.find((army) => army.id === armyId);
     const newModelList = targetArmy.army_models.map((model) => {
       if (model.id === newModel.id) {
         return newModel;
@@ -147,11 +124,20 @@ function App() {
         return model;
       }
     });
-    const updatedArmy = {...targetArmy, army_models: newModelList}
-    setArmies(armies.map(army =>
-      army.id === armyId ? updatedArmy : army))
+        const updatedArmy = { ...targetArmy, army_models: newModelList };
+        setArmies(armies.map((army) => (army.id === armyId ? updatedArmy : army)));
+  }
+
+
+  function updateArmyPageAfterCreate(formData, addedModel){
+    const targetArmy = armies.find((army) => army.id === Number(formData.army_id));
+    const updatedModelList= [...targetArmy.army_models, addedModel];
+    const updatedArmy = { ...targetArmy, army_models: updatedModelList };
+    setArmies(armies.map((army) => (army.id === Number(formData.army_id)? updatedArmy : army)));
   }
   ////////////////////////////////////////////////////////////////////////
+
+
 
   // Controlled Form Submit Functions for UPDATING Models in DB
 
@@ -161,14 +147,27 @@ function App() {
 
   function handleDialogFormSubmit(e, chosenArmy, armyId, modelId) {
     e.preventDefault();
-    updateModels(dialogFormData, chosenArmy, armyId, modelId);
+    updateModels(dialogFormData, armyId, modelId);
     setModelFormData({
       number_in_collection: 0,
       unit_points_cost: 0,
     });
   }
 
-  function updateModels  (dialogFormData, chosenArmy, armyId, modelId) {
+  function handleAddNewModels(formData) {
+    fetch("http://localhost:9292/models", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((addedModel) => {
+       updateArmyPageAfterCreate(formData, addedModel)
+        alert(`${addedModel.name} has been added to your roster.`);
+      });
+  }
+
+  function updateModels(dialogFormData, armyId, modelId) {
     fetch(`http://localhost:9292/models/${modelId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -179,21 +178,19 @@ function App() {
     })
       .then((res) => res.json())
       .then((newModel) => {
-        updateArmyPageAfterPatch(newModel, armyId)
+        updateArmyPageAfterPatch(newModel, armyId);
         alert(`${newModel.name} updated successfully.`);
-  
       });
-  };
+  }
 
-  const handleModelDelete = (modelId, armyId) => {
+  function  handleModelDelete(modelId, armyId) {
     fetch(`http://localhost:9292/models/${modelId}`, {
       method: "DELETE",
-
     })
       .then((res) => res.json())
       .then((deletedModel) => {
         alert(`${deletedModel.name} deleted successfully.`);
-       updateArmyPage(modelId, armyId);
+        updateArmyPageAfterDelete(modelId, armyId);
       });
   };
 
