@@ -10,7 +10,7 @@ import AddModelForm from "./AddModelForm";
 function App() {
   // State variables
   const [armies, setArmies] = useState([]);
-  const [chosenArmy, setChosenArmy ]= useState({});
+  const [chosenArmy, setChosenArmy] = useState({});
   const [armyFormData, setArmyFormData] = useState({
     name: "",
     alignment: "",
@@ -36,17 +36,15 @@ function App() {
   let navigate = useNavigate();
 
   // Gets all armies and associated models from DB
-function getArmies(){
- 
+  function getArmies() {
     fetch("http://localhost:9292/armies").then((response) =>
       response.json().then((fullArmyData) => setArmies(fullArmyData))
     );
+  }
 
-};
-
-useEffect(() => {
-  getArmies()
-}, [])
+  useEffect(() => {
+    getArmies();
+  }, []);
 
   ////////////////////////////////////////////
 
@@ -113,9 +111,9 @@ useEffect(() => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then(() =>{
-        getArmies()
-       } );
+      .then(() => {
+        getArmies();
+      });
   }
 
   function handleAddNewModelsWithOptimisticResponse(formData) {
@@ -132,6 +130,11 @@ useEffect(() => {
        } );
   }
 
+  // function findArmyForUpdates(modelId){
+  //   const targetArmy= armies.find(army => army.army_models.find(model=>model.id === modelId))
+  //   const updatedModelsList = targetArmy.army_models.filter(model=>model.id !== modelId)
+  //   const updatedArmy = {}
+  // }
   ////////////////////////////////////////////////////////////////////////
 
   // Controlled Form Submit Functions for UPDATING Models in DB
@@ -172,18 +175,27 @@ useEffect(() => {
       });
   };
 
-  const handleModelDelete = (modelId) => {
+  const handleModelDelete = (modelId, armyId) => {
     fetch(`http://localhost:9292/models/${modelId}`, {
       method: "DELETE",
+
     })
       .then((res) => res.json())
-      .then((deletedModel) =>{
+      .then((deletedModel) => {
         alert(`${deletedModel.name} deleted successfully.`);
-        const updatedModelRoster = chosenArmy.army_models.filter(model => model.id !== deletedModel.id)
-        setChosenArmy({ ...chosenArmy, army_models: updatedModelRoster });
-  });
+      //  findArmyForUpdates(modelId, armyId);
+       const targetArmy= armies.find(army => army.id === armyId)
+       const updatedModelsList = targetArmy.army_models.filter(model=>model.id !== modelId)
+       const updatedArmy = {...targetArmy, army_models: updatedModelsList}
+       setArmies(armies.map(army =>
+        army.id === armyId ? updatedArmy : army))
+        // const updatedModelRoster = chosenArmy.army_models.filter(
+        //   (model) => model.id !== deletedModel.id
+        // );
+        // setChosenArmy({ ...chosenArmy, army_models: updatedModelRoster });
+      });
   };
-console.log(chosenArmy)
+
   return (
     <div
       style={{
@@ -219,7 +231,8 @@ console.log(chosenArmy)
           }
         />
         <Route
-         exact path="armies/:armyId"
+          exact
+          path="armies/:armyId"
           element={
             <Grid
               container

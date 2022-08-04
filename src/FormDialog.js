@@ -74,7 +74,7 @@ export default function FormDialog({
             <Button type="submit" id={model.id}>
               Update
             </Button>
-            <Button onClick={()=> {handleModelDelete(model.id); handleClose();}}>Delete</Button>
+            <Button onClick={()=> {handleModelDelete(model.id, model.army_id); handleClose();}}>Delete</Button>
           </DialogActions>
         </form>
       </Dialog>

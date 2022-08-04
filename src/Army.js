@@ -1,11 +1,10 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import FormDialog from "./FormDialog";
-import { ja } from "date-fns/locale";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -45,10 +44,9 @@ armies,
   };
 
   let { armyId } = useParams();
-  console.log(armyId)
-  console.log(armies)
+
   const chosenArmy= armies.find((army) => army.id === Number(armyId))
-  console.log({chosenArmy})
+  
   if (!chosenArmy)
     return null;
     
