@@ -37,8 +37,8 @@ armies,
     return null;
     
   const displayModels = chosenArmy.army_models.map((model) => (
-    <Grid key={model.id} item xs={12}>
-      <Item sx={{ width: "100%", margin: "20px" }}>
+   
+      <Item sx={{ width: "30%", margin: "20px" }}>
         <h3>Model: {model.name}</h3>
         <h3>Number in Collection: {model.number_in_collection}</h3>
         <h3>Cost per box: {model.cost_per_box}</h3>
@@ -53,12 +53,14 @@ armies,
           updateModels={updateModels}
         />
       </Item>
-    </Grid>
+   
   ));
   return (
     <div style={armyBlockStyle}>
       <h1 style={{ armyBlockStyle, fontSize: "40px" }}>{chosenArmy.name}</h1>
+      <Grid container spacing ={2} margin={"0 auto"} justifyContent="center">
       {displayModels}
+      </Grid>
     </div>
   );
 }
