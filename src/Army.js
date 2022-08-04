@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import FormDialog from "./FormDialog";
+import { ja } from "date-fns/locale";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -15,14 +16,14 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Army({
-  chosenArmy,
+armies, 
   handleDialogFormChange,
   dialogFormData,
   handleDialogFormSubmit,
   updateModels,
   handleModelDelete,
 }) {
-  const [selectedArmy, setSelectedArmy] = useState({});
+  // const [selectedArmy, setSelectedArmy] = useState({});
   // const [armies, setArmies] = useState({});
   // useEffect(() => {
   //   fetch("http://localhost:9292/armies").then((response) =>
@@ -39,12 +40,18 @@ function Army({
   // }, []);
 
   const armyBlockStyle = {
-    color: "red",
+    color: "red", 
     textAlign: "center",
   };
 
-  // let { armyId } = useParams();
-
+  let { armyId } = useParams();
+  console.log(armyId)
+  console.log(armies)
+  const chosenArmy= armies.find((army) => army.id === Number(armyId))
+  console.log({chosenArmy})
+  if (!chosenArmy)
+    return null;
+    
   const displayModels = chosenArmy.army_models.map((model) => (
     <Grid key={model.id} item xs={12}>
       <Item sx={{ width: "100%", margin: "20px" }}>

@@ -10,7 +10,7 @@ import AddModelForm from "./AddModelForm";
 function App() {
   // State variables
   const [armies, setArmies] = useState([]);
-  const [chosenArmy, setChosenArmy] = useState({});
+  const [chosenArmy, setChosenArmy ]= useState({});
   const [armyFormData, setArmyFormData] = useState({
     name: "",
     alignment: "",
@@ -36,12 +36,17 @@ function App() {
   let navigate = useNavigate();
 
   // Gets all armies and associated models from DB
-
-  useEffect(() => {
+function getArmies(){
+ 
     fetch("http://localhost:9292/armies").then((response) =>
       response.json().then((fullArmyData) => setArmies(fullArmyData))
     );
-  }, [chosenArmy]);
+
+};
+
+useEffect(() => {
+  getArmies()
+}, [])
 
   ////////////////////////////////////////////
 
@@ -108,6 +113,18 @@ function App() {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
+      .then(() =>{
+        getArmies()
+       } );
+  }
+
+  function handleAddNewModelsWithOptimisticResponse(formData) {
+    fetch("http://localhost:9292/models", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
       .then((addedModel) =>{
         const updatedModelRoster = [...chosenArmy.army_models, addedModel]
       setChosenArmy({...chosenArmy, army_models: updatedModelRoster})
@@ -166,7 +183,7 @@ function App() {
         setChosenArmy({ ...chosenArmy, army_models: updatedModelRoster });
   });
   };
-
+console.log(chosenArmy)
   return (
     <div
       style={{
@@ -212,7 +229,6 @@ function App() {
               <Army
                 armies={armies}
                 setArmies={setArmies}
-                chosenArmy={chosenArmy}
                 handleDialogFormChange={handleDialogFormChange}
                 dialogFormData={dialogFormData}
                 handleDialogFormSubmit={handleDialogFormSubmit}
