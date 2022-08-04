@@ -22,21 +22,7 @@ armies,
   updateModels,
   handleModelDelete,
 }) {
-  // const [selectedArmy, setSelectedArmy] = useState({});
-  // const [armies, setArmies] = useState({});
-  // useEffect(() => {
-  //   fetch("http://localhost:9292/armies").then((response) =>
-  //     response
-  //       .json()
-  //       .then((fullArmyData) => {
-  //         setArmies(fullArmyData);
-  //       })
-  //       .then(() => {
-  //         const result = armies.find((army) => army.id == armyId);
-  //         setSelectedArmy(result);
-  //       })
-  //   );
-  // }, []);
+
 
   const armyBlockStyle = {
     color: "red", 
@@ -58,8 +44,7 @@ armies,
         <h3>Cost per box: {model.cost_per_box}</h3>
         <h3>Unit points cost: {model.unit_points_cost}</h3>
         <FormDialog
-          chosenArmy={chosenArmy}
-          // displayArmy={selectedArmy}
+          armyId = {chosenArmy.id}
           model={model}
           handleDialogFormChange={handleDialogFormChange}
           dialogFormData={dialogFormData}

@@ -130,11 +130,27 @@ function App() {
        } );
   }
 
-  // function findArmyForUpdates(modelId){
-  //   const targetArmy= armies.find(army => army.army_models.find(model=>model.id === modelId))
-  //   const updatedModelsList = targetArmy.army_models.filter(model=>model.id !== modelId)
-  //   const updatedArmy = {}
-  // }
+  function updateArmyPage(modelId, armyId){
+    const targetArmy= armies.find(army => army.id === armyId)
+    const updatedModelsList = targetArmy.army_models.filter(model=>model.id !== modelId)
+    const updatedArmy = {...targetArmy, army_models: updatedModelsList}
+    setArmies(armies.map(army =>
+     army.id === armyId ? updatedArmy : army))
+  }
+
+  function updateArmyPageAfterPatch(newModel, armyId){
+    const targetArmy= armies.find(army => army.id === armyId)
+    const newModelList = targetArmy.army_models.map((model) => {
+      if (model.id === newModel.id) {
+        return newModel;
+      } else {
+        return model;
+      }
+    });
+    const updatedArmy = {...targetArmy, army_models: newModelList}
+    setArmies(armies.map(army =>
+      army.id === armyId ? updatedArmy : army))
+  }
   ////////////////////////////////////////////////////////////////////////
 
   // Controlled Form Submit Functions for UPDATING Models in DB
@@ -143,16 +159,16 @@ function App() {
     setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
   }
 
-  function handleDialogFormSubmit(e, chosenArmy, modelId) {
+  function handleDialogFormSubmit(e, chosenArmy, armyId, modelId) {
     e.preventDefault();
-    updateModels(dialogFormData, chosenArmy, modelId);
+    updateModels(dialogFormData, chosenArmy, armyId, modelId);
     setModelFormData({
       number_in_collection: 0,
       unit_points_cost: 0,
     });
   }
 
-  const updateModels = (dialogFormData, chosenArmy, modelId) => {
+  function updateModels  (dialogFormData, chosenArmy, armyId, modelId) {
     fetch(`http://localhost:9292/models/${modelId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -163,15 +179,9 @@ function App() {
     })
       .then((res) => res.json())
       .then((newModel) => {
+        updateArmyPageAfterPatch(newModel, armyId)
         alert(`${newModel.name} updated successfully.`);
-        const newArmyModel = chosenArmy.army_models.map((model) => {
-          if (model.id === newModel.id) {
-            return newModel;
-          } else {
-            return model;
-          }
-        });
-        setChosenArmy({ ...chosenArmy, army_models: newArmyModel });
+  
       });
   };
 
@@ -183,16 +193,7 @@ function App() {
       .then((res) => res.json())
       .then((deletedModel) => {
         alert(`${deletedModel.name} deleted successfully.`);
-      //  findArmyForUpdates(modelId, armyId);
-       const targetArmy= armies.find(army => army.id === armyId)
-       const updatedModelsList = targetArmy.army_models.filter(model=>model.id !== modelId)
-       const updatedArmy = {...targetArmy, army_models: updatedModelsList}
-       setArmies(armies.map(army =>
-        army.id === armyId ? updatedArmy : army))
-        // const updatedModelRoster = chosenArmy.army_models.filter(
-        //   (model) => model.id !== deletedModel.id
-        // );
-        // setChosenArmy({ ...chosenArmy, army_models: updatedModelRoster });
+       updateArmyPage(modelId, armyId);
       });
   };
 
