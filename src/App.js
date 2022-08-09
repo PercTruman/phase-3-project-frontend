@@ -145,7 +145,7 @@ function App() {
     setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
   }
 
-  function handleDialogFormSubmit(e, chosenArmy, armyId, modelId) {
+  function handleDialogFormSubmit(e, armyId, modelId) {
     e.preventDefault();
     updateModels(dialogFormData, armyId, modelId);
     setModelFormData({
@@ -155,6 +155,7 @@ function App() {
   }
 
   function handleAddNewModels(formData) {
+   
     fetch("http://localhost:9292/models", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -165,6 +166,7 @@ function App() {
        updateArmyPageAfterCreate(formData, addedModel)
         alert(`${addedModel.name} has been added to your roster.`);
       });
+  
   }
 
   function updateModels(dialogFormData, armyId, modelId) {
@@ -181,6 +183,7 @@ function App() {
         updateArmyPageAfterPatch(newModel, armyId);
         alert(`${newModel.name} updated successfully.`);
       });
+     ;
   }
 
   function  handleModelDelete(modelId, armyId) {

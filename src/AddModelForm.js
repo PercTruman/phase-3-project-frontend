@@ -14,6 +14,8 @@ function AddModelForm({
       {army.name}
     </option>
   ));
+
+ 
 /////////////////////////////////////////////////////////
 
 
@@ -89,6 +91,7 @@ function AddModelForm({
         style={{ margin: "15px auto", width: "130px" }}
         type="submit"
         value="Add New Model(s)"
+       
       />
     </form>
   );
