@@ -78,7 +78,8 @@ function App() {
       body: JSON.stringify(form),
     })
       .then((res) => res.json())
-      .then((addedArmy) => setArmies([...armies, addedArmy]));
+      .then((addedArmy) => setArmies([...armies, addedArmy]))
+      .then(getArmies())
   }
 
   ////////////////////////////////////////////////////////////////////////
