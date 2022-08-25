@@ -13,6 +13,7 @@ function AddModelForm({
     <option type="integer" key={army.name} name="army_id" value={army.id} >
       {army.name}
     </option>
+
   ));
 
  
@@ -21,7 +22,7 @@ function AddModelForm({
 
   return (
     <form
-      onSubmit={handleModelFormSubmit}
+      onSubmit={()=>handleModelFormSubmit}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -84,6 +85,7 @@ function AddModelForm({
       <label style={{ fontSize: "20px", textAlign: "center", padding: "15px" }}>Which Army To Update?</label>
     
     <select value={modelFormData.army_id} name="army_id" onChange={e=>handleModelFormChange(e)}>
+      <option defaultValue={true}>Choose Army</option>
       {dropDownOptions}
       </select>
 

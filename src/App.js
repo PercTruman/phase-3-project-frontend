@@ -69,6 +69,7 @@ function App() {
       alignment: "",
       description: "",
     });
+    getArmies()
   }
 
   function handleAddNewArmy(form) {
